@@ -1,0 +1,237 @@
+\ProvidesPackage{préambule}
+
+\usepackage{fontspec}           % Pour changer la police
+\setmainfont[Ligatures=TeX]{DejaVuSans} % Police avec support pour l'UTF-8
+\usepackage{unicode-math}       % Symboles unicodes en mode math
+\usepackage[french]{babel}    % françisation partielle de l'output
+\usepackage{natbib}             % bibliographie
+\usepackage{amsthm}             % maths
+\usepackage{amsmath}            % maths
+\usepackage{graphicx}           % figures
+\usepackage{titlesec}           % permet de changer l'affichage des sections et autres
+\usepackage{color}              % couleurs rgb
+\usepackage[tikz]{mdframed}     % boites fancy autour des théorèmes et autres
+\usepackage{contour}            % Pour souligner
+\usepackage{ulem}               % Pour souligner
+\usetikzlibrary{shadows}        % effet d'ombre sur les boites ('shadow = true')
+\usepackage{nopageno}           % pas de numéros de page
+\usepackage[makeroom]{cancel}   % texte barré
+\usepackage{hyperref}           % références
+\usepackage{multicol}           % avoir le texte en plusieurs colonnes
+\usepackage{caption}            % Custom image captions
+\usepackage{floatrow}           % ??? plusieurs images côte à côte
+\usepackage{pstricks-add}       % figures ( en l'occurence des droites graduées)
+\usepackage[thinlines]{easytable} % Table plus faciles à utiliser (environnement TAB)
+\usepackage{enumitem}           % Pour facilement modifier les listes.
+\usepackage{tabularx} % meileurs tableaux
+\usepackage{luacode} % \begin{luacode} ... \end{luacode}
+\usepackage{wrapfig} % Texte autour d'images
+
+% renommage de la table des matières
+\addto\captionsfrench{\renewcommand*\contentsname{Nom de la table des matières}}
+\setcounter{tocdepth}{1}
+
+% unité de longueur pour pstricks
+\psset{unit=0.4cm}
+
+% Symboles des listes
+\setlist[itemize,1]{label=\textbullet}
+\setlist[itemize,2]{label=\textendash}
+
+
+% Définition des théorèmes, remarques...
+
+\definecolor{myred}{RGB}{220, 20, 20}
+\definecolor{mygreen}{RGB}{0, 170, 40}
+\definecolor{myblue}{RGB}{0, 0, 100}
+
+\mdfdefinestyle{coursstyle}{
+    linecolor=gray!60,
+    linewidth=1pt,
+    frametitlefontcolor=myred,
+    frametitlebackgroundcolor=gray!20,
+    frametitlerule=true,
+    frametitlerulewidth=1pt,
+    frametitlerulecolor=myred!50,
+    frametitle={Cours},
+    roundcorner=5pt,
+    shadow=true,
+    innertopmargin=\topskip,
+}
+
+\mdfdefinestyle{methodestyle}{
+	linecolor=gray!60,
+    linewidth=1pt,
+    frametitlefontcolor=myred,
+    frametitlebackgroundcolor=gray!20,
+    frametitlerule=true,
+    frametitlerulewidth=1pt,
+    frametitlerulecolor=myred!50,
+    frametitle={Méthode},
+    roundcorner=5pt,
+    shadow=true,
+    innertopmargin=\topskip,
+}
+
+\mdfdefinestyle{exemplestyle}{
+    linecolor=black!70,
+    linewidth=1pt,
+    backgroundcolor=gray!0,
+    frametitlefontcolor=myblue,
+    frametitlebackgroundcolor=gray!10,
+    frametitlerulecolor=black!30,
+    frametitle={Exemple},
+    topline=false,
+    bottomline=false,
+    rightline=false,
+    leftmargin=12,
+    innertopmargin=\topskip,
+}
+
+\mdfdefinestyle{applicationstyle}{
+    linecolor=black!70,
+    linewidth=1pt,
+    backgroundcolor=gray!0,
+    frametitlefontcolor=myblue,
+    frametitlebackgroundcolor=gray!10,
+    frametitlerulecolor=black!30,
+    frametitle={Application},
+    topline=false,
+    bottomline=false,
+    rightline=false,
+    leftmargin=12,
+    innertopmargin=\topskip,
+}
+
+\mdfdefinestyle{boxstyle}{
+    linecolor=black!70,
+    linewidth=1pt,
+    leftmargin=12,
+    innertopmargin=\topskip,
+}
+
+\mdfdefinestyle{greyboxstyle}{
+    linecolor=black!70,
+    linewidth=1pt,
+    leftmargin=12,
+    frametitlebackgroundcolor=gray!10,
+    frametitlerulecolor=black!30,
+    topline=false,
+    bottomline=false,
+    rightline=false,
+    innertopmargin=\topskip,
+}
+
+\mdfdefinestyle{paleboxstyle}{
+    frametitlebackgroundcolor=gray!10,
+    frametitlerulecolor=black!30,
+	leftline=false,
+    topline=false,
+    bottomline=false,
+    rightline=false,
+    leftmargin=20,
+    innertopmargin=\topskip,
+}
+
+% théorème qui souligne son titre.
+\newtheoremstyle{underline_theorem_style}
+	{\topsep} % espace avant
+	{\topsep} % espace après
+	{} % Police utilisee par le style de thm
+	{} % Indentation (vide = aucune, \parindent = indentation paragraphe)
+	{\bfseries}% Police du titre de thm
+	{.} % Signe de ponctuation apres le titre du thm
+	{ }% Espace apres le titre du thm (\newline = linebreak)
+	{\myuline{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont{\textbf{#3}}}}}% composants du titre du thm : \thmname = nom du thm, \thmnumber = numéro du thm, \thmnote = sous-titre du thm
+
+\theoremstyle{underline_theorem_style}
+\newtheorem{question}{Question}
+\newtheorem*{question*}{Question}
+\newtheorem{exercice}{Exercice}
+\newtheorem*{exercice*}{Exercice}
+
+\newmdenv[style=exemplestyle]{exemple}
+\newmdenv[style=applicationstyle]{application}
+\newmdenv[style=coursstyle]{cours}
+\newmdenv[style=methodestyle]{methode}
+\newmdenv[style=boxstyle]{mybox}
+\newmdenv[style=greyboxstyle]{greybox}
+\newmdenv[style=paleboxstyle]{palebox}
+
+% Titre optionel pour les blocks 'Cours'
+\makeatletter
+\let\orig@cours=\cours
+\def\cours{
+  \@ifnextchar[{\cours@opt}{\orig@cours}
+}
+\def\cours@opt[#1]{
+  \orig@cours[frametitle={Cours : #1}]
+}
+\makeatother
+
+% Titre optionel pour les blocks 'Méthode'
+\makeatletter
+\let\orig@methode=\methode
+\def\methode{
+  \@ifnextchar[{\methode@opt}{\orig@methode}
+}
+\def\methode@opt[#1]{
+  \orig@methode[frametitle={Cours : #1}]
+}
+\makeatother
+
+% Titre optionel pour les blocks 'Application'
+\makeatletter
+\let\orig@application=\application
+\def\application{
+  \@ifnextchar[{\application@opt}{\orig@application}
+}
+\def\application@opt[#1]{
+  \orig@application[frametitle={Application : #1}]
+}
+\makeatother
+
+% Titre optionel pour les blocks gris
+\makeatletter
+\let\orig@greybox=\greybox
+\def\greybox{
+  \@ifnextchar[{\greybox@opt}{\orig@greybox}
+}
+\def\greybox@opt[#1]{
+  \orig@greybox[frametitle={#1}]
+}
+\makeatother
+
+% Titre optionel pour les blocks pâles
+\makeatletter
+\let\orig@palebox=\palebox
+\def\palebox{
+  \@ifnextchar[{\palebox@opt}{\orig@palebox}
+}
+\def\palebox@opt[#1]{
+  \orig@palebox[frametitle={#1}]
+}
+\makeatother
+
+\newcommand{\somme}[2]{\overset{#2}{\underset{#1}{\sum}}}
+\newcommand{\produit}[2]{\overset{#2}{\underset{#1}{\prod}}}
+\newcommand{\sommedirecte}[2]{\overset{#2}{\underset{#1}{\oplus}}}
+\renewcommand*{\proofname}{Preuve}
+
+\renewcommand{\ULdepth}{1.8pt}
+\contourlength{0.8pt}
+
+% Commande de soulignage
+% On peut optionellement spécifier la couleur
+\newcommand{\myuline}[2][]{%
+	{#1\uline{\phantom{#2}}}%
+	\llap{\contour{white}{#2}}%
+}
+
+% Pour entourer un nombre
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+% Pour entourer un nombre par un carré
+\newcommand*\squared[1]{\tikz[baseline=(char.base)]{
+	\node[shape=rectangle,draw,inner sep=2pt] (char) {#1};}}

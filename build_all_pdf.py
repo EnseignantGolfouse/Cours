@@ -1,0 +1,218 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import subprocess
+import os
+import sys
+import getopt
+from colorama import Fore
+
+
+def find_tex_files_in(directory: str) -> list:
+    """
+    Recursively find all `.tex` files in `directory`.
+    Returns a list of `(dir, file)`, where `dir` is the directory where the file was found, and `file` is the base name of the file.
+    """
+    result: list = []
+    for item in os.listdir(directory):
+        name: str = os.path.join(directory, item)
+        if os.path.isfile(name):
+            if item.endswith(".tex"):
+                result.append((directory, item))
+        elif os.path.isdir(name):
+            result.extend(find_tex_files_in(name))
+    return result
+
+
+def compile_all(path: str, artifacts_dir: str, output_dir: str):
+    """
+    Find and compile all `.tex` files in the current directory (and all its subdirectories).
+
+    - All compilation artifacts will be placed in `artifacts_dir` (relative to the current directory).
+    - The resulting pdf will be placed in `output_dir` (relative to the `.tex` file).
+
+    The compiling command is `latexmk -lualatex -output-directory=<artifacts_dir> -synctex=1 -interaction=nonstopmode -file-line-error`.
+    """
+    tex_files: list = find_tex_files_in(path)
+    total_ok: int = 0
+    total_err: int = 0
+    total_files: int = len(tex_files)
+    failed_files: list = []
+    root_dir: str = os.path.abspath(".")
+    build_dir: str = os.path.join(root_dir, artifacts_dir)
+    file_number: int = 1
+    for (directory, file_tex) in tex_files:
+        print(
+            Fore.CYAN + f"{file_number}/{total_files} " + Fore.RESET
+            + os.path.join(directory, file_tex),
+            end="")
+
+        file_pdf: str = file_tex[:len(file_tex)-4] + ".pdf"
+        os.chdir(directory)
+        try:
+            subprocess.check_output([
+                "latexmk",
+                "-lualatex",
+                "-output-directory=" + build_dir,
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                file_tex
+            ], stderr=subprocess.STDOUT)
+            subprocess.check_output(
+                ["mkdir", "-p", output_dir],
+                stderr=subprocess.STDOUT
+            )
+            subprocess.check_output([
+                "cp",
+                os.path.join(build_dir, file_pdf),
+                os.path.join(output_dir, file_pdf),
+            ],  stderr=subprocess.STDOUT)
+            total_ok += 1
+            print("  " + Fore.GREEN + "OK" + Fore.RESET)
+        except subprocess.CalledProcessError as process_error:
+            total_err += 1
+            failed_files.append(os.path.join(directory, file_tex))
+            print("  " + Fore.RED + "[ERROR]" + Fore.RESET)
+            print(process_error.output.decode("utf-8"))
+        except Exception as e:
+            raise e
+        finally:
+            os.chdir(root_dir)
+            file_number += 1
+    print()
+    print()
+    print("    OK:", total_ok, ", ERR:", total_err)
+    print()
+    if total_err > 0:
+        print(
+            Fore.RED + f"Errors detected: {total_err} files failed to build" + Fore.RESET)
+        print("The following files had errors:")
+        for file in failed_files:
+            print("  ", file)
+    else:
+        print(Fore.GREEN, "No error detected !" + Fore.RESET)
+
+
+def clean(path: str, output_dir: str):
+    """
+    Find all '.tex' files in `path` (and all its subdirectories), and remove orphan pdfs in `output_dir`.
+    """
+    tex_files: list = find_tex_files_in(path)
+
+    tex_files_dict = {}
+    for (directory, tex_file) in tex_files:
+        if tex_files_dict.get(directory) == None:
+            tex_files_dict[directory] = [tex_file]
+        else:
+            tex_files_dict[directory].append(tex_file)
+
+    total_removed: int = 0
+    for directory in tex_files_dict:
+        pdf_dir = os.path.join(directory, output_dir)
+        tex_files = tex_files_dict[directory]
+        if not os.path.exists(pdf_dir):
+            continue
+        for pdf_file in os.listdir(pdf_dir):
+            if not pdf_file.endswith(".pdf"):
+                continue
+            should_remove = True
+            for tex_file in tex_files:
+                if tex_file[:-4] == pdf_file[:-4]:
+                    should_remove = False
+                    break
+            if not should_remove:
+                continue
+            try:
+                item = os.path.join(pdf_dir, pdf_file)
+                subprocess.check_output([
+                    "rm", item
+                ], stderr=subprocess.STDOUT)
+                print(item, Fore.RED, "[REMOVED]", Fore.RESET)
+                total_removed += 1
+            except Exception as e:
+                raise e
+    print()
+    print(f"Removed {total_removed} outdated files.")
+
+
+def clean_all(path: str, artifacts_dir: str, output_dir: str):
+    """
+    Remove all intermediate and final objects generated by this binary.
+
+    - removes the `artifacts_dir` (relative to the current directory).
+    - removes the `output_dir` (relative to the `.tex` file).
+    """
+    tex_files: list = find_tex_files_in(path)
+    root_dir: str = os.path.abspath(".")
+    build_dir: str = os.path.join(root_dir, artifacts_dir)
+    print("removing ", build_dir)
+    try:
+        subprocess.check_output([
+            "rm", "-rf", build_dir
+        ], stderr=subprocess.STDOUT)
+    except Exception as e:
+        raise e
+    for (directory, file_tex) in tex_files:
+        pdf_dir = os.path.join(directory, output_dir)
+        if os.path.exists(pdf_dir):
+            print("removing ", pdf_dir)
+        try:
+            subprocess.check_output([
+                "rm", "-rf", pdf_dir
+            ], stderr=subprocess.STDOUT)
+        except Exception as e:
+            raise e
+
+
+def print_help(exit_code: int):
+    print("helper to build tex files.")
+    print("")
+    print("USAGE:")
+    print("    build_all_pdf.py [OPTIONS]")
+    print("")
+    print("OPTIONS:")
+    print("    -h, --help             Prints help information")
+    print("    -p, --path <PATH>      Only build tex files under PATH. This defaults to the current directory.")
+    print("        --clean <PATH>     Remove pdf without associated .tex file.")
+    print("        --clean-all <PATH> Clean all pdfs.")
+    sys.exit(exit_code)
+
+
+def main(argv):
+    path = "."
+    try:
+        opts, args = getopt.getopt(
+            argv, "hp:", ["help", "path=", "clean", "clean-all"])
+    except getopt.GetoptError:
+        print(Fore.RED + "ERROR: invalid arguments" + Fore.RESET)
+        print_help(2)
+    cleaning_level: int = 0
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            print_help(0)
+        elif opt in ("-p", "--path"):
+            path = arg
+        elif opt in ("--clean"):
+            cleaning_level = 1
+        elif opt in ("--clean-all"):
+            cleaning_level = 2
+    if cleaning_level == 1:
+        clean(path, "pdf")
+    elif cleaning_level == 2:
+        confirm = False
+        full_path = os.path.abspath(path)
+        print(f"This will remove ALL pdfs in {full_path}: continue ? (Y/N)")
+        user_input = input()
+        if user_input == "Y" or user_input == "y":
+            confirm = True
+        if confirm:
+            clean_all(path, ".build", "pdf")
+        else:
+            print("aborting clean.")
+    else:
+        compile_all(path, ".build", "pdf")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

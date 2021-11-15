@@ -1,0 +1,187 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}     % support des caractères spéciaux (é, þ, ...)
+\usepackage{fontspec}           % Pour changer la police
+\defaultfontfeatures{Scale=1.4} % text scale
+\setmainfont[Ligatures=TeX]{FreeSerif} % Police avec support pour l'UTF-8
+\usepackage{unicode-math}       % Symboles unicodes en mode math
+\usepackage[francais]{babel}    % françisation partielle de l'output
+\usepackage{natbib}             % bibliographie
+\usepackage{amsthm}             % maths
+\usepackage{amsmath}            % maths
+\usepackage{mathtools}          % maths
+\usepackage{graphicx}           % figures
+\usepackage{titlesec}           % permet de changer l'affichage des sections et autres
+\usepackage{color}              % couleurs rgb
+\usepackage[dvipsnames]{xcolor} % plus de couleurs
+\usepackage[tikz]{mdframed}     % boites fancy autour des théorèmes et autres
+\usepackage{contour}            % Pour souligner
+\usepackage{ulem}               % Pour souligner
+\usetikzlibrary{shadows}        % effet d'ombre sur les boites ('shadow = true')
+\usepackage{nopageno}           % pas de numéros de page
+\usepackage[makeroom]{cancel}   % texte barré
+
+% renommage de la table des matières
+\addto\captionsfrench{\renewcommand*\contentsname{Nom de la table des matières}}
+\setcounter{tocdepth}{1}
+
+
+% Définition des théorèmes, remarques...
+
+
+\definecolor{theoremcolor}{RGB}{220, 20, 20}
+\definecolor{definitioncolor}{RGB}{0, 170, 40}
+\definecolor{remarkcolor}{RGB}{0, 0, 100}
+
+\mdfdefinestyle{coursstyle}{
+    linecolor=gray!60,
+    linewidth=1pt,
+    frametitlefontcolor=theoremcolor,
+    frametitlebackgroundcolor=gray!20,
+    frametitlerule=true,
+    frametitlerulewidth=1pt,
+    frametitlerulecolor=theoremcolor!50,
+    frametitle={Cours},
+    roundcorner=5pt,
+    shadow=true,
+    innertopmargin=\topskip,
+}
+
+\mdfdefinestyle{exemplestyle}{
+    linecolor=black!70,
+    linewidth=1pt,
+    backgroundcolor=gray!0,
+    frametitlefontcolor=remarkcolor,
+    frametitlebackgroundcolor=gray!10,
+    frametitlerulecolor=black!30,
+    frametitle={Exemple},
+    topline=false,
+    bottomline=false,
+    rightline=false,
+    leftmargin=-18,
+	rightmargin=-18,
+    innertopmargin=\topskip,
+}
+
+\mdfdefinestyle{definitionstyle}{
+    linecolor=gray,
+    linewidth=1pt,
+    frametitlefontcolor=definitioncolor,
+    frametitlebackgroundcolor=gray!20,
+    frametitlerule=true,
+    frametitlerulewidth=1pt,
+    frametitlerulecolor=definitioncolor!50,
+	frametitle={Définition},
+	leftmargin=-18,
+	rightmargin=-18,
+    innertopmargin=\topskip,
+}
+
+\mdfdefinestyle{plainstyle}{
+    linecolor=gray,
+    linewidth=1pt,
+    frametitlefontcolor=black,
+    frametitlebackgroundcolor=gray!20,
+	frametitle={Exercice},
+	leftmargin=-18,
+	rightmargin=-18,
+    innertopmargin=\topskip,
+}
+
+\newmdenv[style=exemplestyle]{exemple}
+\newmdenv[style=coursstyle]{cours}
+\newmdenv[style=definitionstyle]{definition}
+
+% Titre optionel pour les blocks 'cours'
+\makeatletter
+\let\orig@cours=\cours
+\def\cours{
+  \@ifnextchar[{\cours@opt}{\orig@cours}
+}
+\def\cours@opt[#1]{
+  \orig@cours[frametitle={Cours : #1}]
+}
+\makeatother
+
+% Titre optionel pour les blocks 'définition'
+\makeatletter
+\let\orig@definition=\definition
+\def\definition{
+  \@ifnextchar[{\definition@opt}{\orig@definition}
+}
+\def\definition@opt[#1]{
+  \orig@definition[frametitle={Définition : #1}]
+}
+\makeatother
+
+% environnement exercices
+\newtheoremstyle{exostyle}
+{\topsep}% espace avant
+{1cm}% espace apres
+{}% Police utilisee par le style de thm
+{}% Indentation (vide = aucune, \parindent = indentation paragraphe)
+{\bfseries}% Police du titre de thm
+{.}% Signe de ponctuation apres le titre du thm
+{ }% Espace apres le titre du thm (\newline = linebreak)
+{\thmname{#1}\thmnumber{ #2}\thmnote{. \normalfont{\textit{#3}}}}% composants du titre du thm : \thmname = nom du thm, \thmnumber = numéro du thm, \thmnote = sous-titre du thm
+
+\theoremstyle{exostyle}
+\newtheorem{exercice}{Exercice} 
+
+\newcommand{\somme}[2]{\overset{#2}{\underset{#1}{\sum}}}
+\newcommand{\produit}[2]{\overset{#2}{\underset{#1}{\prod}}}
+\newcommand{\sommedirecte}[2]{\overset{#2}{\underset{#1}{\oplus}}}
+\renewcommand*{\proofname}{Preuve}
+
+\renewcommand{\ULdepth}{1.8pt}
+\contourlength{0.8pt}
+
+% Commande de soulignage
+\newcommand{\myuline}[1]{%
+  \uline{\phantom{#1}}%
+  \llap{\contour{white}{#1}}%
+}
+
+% Pour entourer un nombre
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+%%%%%%%%%%%%%%%%%%
+
+\title{Autour des nombres premiers}
+\date{}
+
+%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\maketitle
+%\tableofcontents % pour avoir une table des matières
+
+\begin{exercice}
+	\begin{enumerate}
+		\item 25
+		\item 101 103 107 109 113 127
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+	3 11 17
+\end{exercice}
+
+\begin{exercice}
+	\begin{enumerate}
+		\item 1, 2, 3, 4, 6, 12
+		\item 2, 3
+		\item tous les diviseurs (sauf 1) sont des multiple des diviseurs premiers.
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}[(avancé)\\]
+	Infini \\
+	Car $p1×p2×⋯×pₙ + 1$ serait alors premier.
+\end{exercice}
+
+\end{document}

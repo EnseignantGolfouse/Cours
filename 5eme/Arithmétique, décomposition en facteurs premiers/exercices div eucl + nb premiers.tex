@@ -1,0 +1,238 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}     % support des caractères spéciaux (é, þ, ...)
+\usepackage{fontspec}           % Pour changer la police
+\defaultfontfeatures{Scale=1.4} % text scale
+\setmainfont[Ligatures=TeX]{FreeSerif} % Police avec support pour l'UTF-8
+\usepackage{unicode-math}       % Symboles unicodes en mode math
+\usepackage[francais]{babel}    % françisation partielle de l'output
+\usepackage{natbib}             % bibliographie
+\usepackage{amsthm}             % maths
+\usepackage{amsmath}            % maths
+\usepackage{mathtools}          % maths
+\usepackage{graphicx}           % figures
+\usepackage{titlesec}           % permet de changer l'affichage des sections et autres
+\usepackage{color}              % couleurs rgb
+\usepackage[dvipsnames]{xcolor} % plus de couleurs
+\usepackage[tikz]{mdframed}     % boites fancy autour des théorèmes et autres
+\usepackage{contour} % Pour souligner
+\usepackage{ulem}    % Pour souligner
+\usetikzlibrary{shadows}        % effet d'ombre sur les boites ('shadow = true')
+\usepackage{nopageno} % no page numbers
+
+% renommage de la table des matières
+\addto\captionsfrench{\renewcommand*\contentsname{Nom de la table des matières}}
+\setcounter{tocdepth}{1}
+
+
+% Définition des théorèmes, remarques...
+
+
+\definecolor{theoremcolor}{RGB}{220, 20, 20}
+\definecolor{definitioncolor}{RGB}{0, 170, 40}
+\definecolor{remarkcolor}{RGB}{0, 0, 100}
+
+\mdfdefinestyle{coursstyle}{
+    linecolor=gray!60,
+    linewidth=1pt,
+    frametitlefontcolor=theoremcolor,
+    frametitlebackgroundcolor=gray!20,
+    frametitlerule=true,
+    frametitlerulewidth=1pt,
+    frametitlerulecolor=theoremcolor!50,
+    frametitle={Cours},
+    roundcorner=5pt,
+    shadow=true,
+    innertopmargin=\topskip,
+}
+
+\mdfdefinestyle{exemplestyle}{
+    linecolor=black!70,
+    linewidth=1pt,
+    backgroundcolor=gray!0,
+    frametitlefontcolor=remarkcolor,
+    frametitlebackgroundcolor=gray!10,
+    frametitlerulecolor=black!30,
+    frametitle={Exemple},
+    topline=false,
+    bottomline=false,
+    rightline=false,
+    leftmargin=12,
+    innertopmargin=\topskip,
+}
+
+\newmdenv[style=exemplestyle]{exemple}
+\newmdenv[style=coursstyle]{cours}
+
+% Titre optionel pour les blocks 'cours'
+\makeatletter
+\let\orig@cours=\cours
+\def\cours{
+  \@ifnextchar[{\cours@opt}{\orig@cours}
+}
+\def\cours@opt[#1]{
+  \orig@cours[frametitle={Cours : #1}]
+}
+\makeatother
+
+% environnement exercices
+\newtheoremstyle{exostyle}
+{\topsep}% espace avant
+{1cm}% espace apres
+{}% Police utilisee par le style de thm
+{}% Indentation (vide = aucune, \parindent = indentation paragraphe)
+{\bfseries}% Police du titre de thm
+{.}% Signe de ponctuation apres le titre du thm
+{ }% Espace apres le titre du thm (\newline = linebreak)
+{\thmname{#1}\thmnumber{ #2}\thmnote{. \normalfont{\textit{#3}}}}% composants du titre du thm : \thmname = nom du thm, \thmnumber = numéro du thm, \thmnote = sous-titre du thm
+
+\theoremstyle{exostyle}
+\newtheorem{exercice}{Exercice} 
+
+\newcommand{\somme}[2]{\overset{#2}{\underset{#1}{\sum}}}
+\newcommand{\produit}[2]{\overset{#2}{\underset{#1}{\prod}}}
+\newcommand{\sommedirecte}[2]{\overset{#2}{\underset{#1}{\oplus}}}
+\renewcommand*{\proofname}{Preuve}
+
+\renewcommand{\ULdepth}{1.8pt}
+\contourlength{0.8pt}
+
+% Commande de soulignage
+\newcommand{\myuline}[1]{%
+  \uline{\phantom{#1}}%
+  \llap{\contour{white}{#1}}%
+}
+
+% Pour entourer un nombre
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+%%%%%%%%%%%%%%%%%%
+
+\title{Exercices : Division euclidiennes, nombres premiers}
+\date{10 septembre 2021}
+
+%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\maketitle
+
+\begin{exercice}
+	Faire \textbf{sans} calculatrice les divisions euclidiennes suivantes :
+	\begin{enumerate}
+		\begin{minipage}{0.45\linewidth}
+			\item $\begin{array}{r|r}
+					423 & 5 \\
+					\cline{2-2}
+					    &
+				\end{array}$
+			\item $\begin{array}{r|r}
+					2251 & 10 \\
+					\cline{2-2}
+					     &
+				\end{array}$
+			\item $\begin{array}{r|r}
+					1174 & 11 \\
+					\cline{2-2}
+					     &
+				\end{array}$
+			\item $\begin{array}{r|r}
+					3201 & 14 \\
+					\cline{2-2}
+					     &
+				\end{array}$
+		\end{minipage}
+		\begin{minipage}{0.45\linewidth}
+			\item $\begin{array}{r|r}
+					745 & 8 \\
+					\cline{2-2}
+					    &
+				\end{array}$
+			\item $\begin{array}{r|r}
+					8756 & 4 \\
+					\cline{2-2}
+					     &
+				\end{array}$
+			\item $\begin{array}{r|r}
+					4985 & 23 \\
+					\cline{2-2}
+					     &
+				\end{array}$
+			\item $\begin{array}{r|r}
+					874 & 17 \\
+					\cline{2-2}
+					    &
+				\end{array}$
+		\end{minipage}
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+	Faire \textbf{avec} la calculatrice les divisions euclidiennes suivantes :
+	\begin{enumerate}
+		\begin{minipage}{0.45\linewidth}
+			\item $\begin{array}{r|r}
+					894523 & 452 \\
+					\cline{2-2}
+					       &
+				\end{array}$
+			\item $\begin{array}{r|r}
+					54779612 & 54236 \\
+					\cline{2-2}
+					         &
+				\end{array}$
+		\end{minipage}
+		\begin{minipage}{0.45\linewidth}
+			\item $\begin{array}{r|r}
+					4215637 & 3156 \\
+					\cline{2-2}
+					        &
+				\end{array}$
+			\item $\begin{array}{r|r}
+					7530633 & 2013 \\
+					\cline{2-2}
+					        &
+				\end{array}$
+		\end{minipage}
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+	Dire si les affirmations suivantes sont vraies ou fausses, et expliquer pourquoi. Ne pas utiliser la calculatrice.
+	\begin{enumerate}
+		\item $235$ est un multiple de $3$
+		\item $712$ est un multiple de $5$
+		\item $1022$ est un multiple de $2$
+		\item $17$ est un diviseur de $1717$
+		\item $11$ est un multiple de $1111$
+		\item $5139$ est un multiple de $16$
+	\end{enumerate}
+\end{exercice}
+
+\begin{exercice}
+	\begin{itemize}
+		\item Combien y-a-t'il de minutes dans une journée ? Et combien de secondes ?
+		\item Alice a été en cours 420 minutes aujourd'hui. Combien d'heures a-t-elle passé en cours ?
+		\item Bilal a lui compté les secondes ! Il en a compté $22320$. A-t-il passé un nombre rond d'heures en cours ? Si non, écrire le temps qu'il a passé en cours en heures et en minutes.
+	\end{itemize}
+\end{exercice}
+
+\begin{exercice}
+	\begin{enumerate}
+		\item Lister tous les diviseurs de $140$.
+		\item Lister tous les diviseurs de $42$.
+		\item Lister tous les nombres qui sont diviseur de $140$ \textbf{et} de $42$.
+	\end{enumerate}
+\end{exercice}
+
+\textbf{Si j'ai fini, je peux : \\}
+
+\begin{itemize}
+	\item Faire mes devoirs.
+	\item Faire les exercices 54, 55, 56, 57 et 58 page 28.
+\end{itemize}
+
+\end{document}
