@@ -1,0 +1,121 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{../préambule}
+
+\begin{luacode}
+	function myAdd(x, y)
+		tex.sprint(x + y)
+	end
+\end{luacode}
+
+\newcommand\myAdd[2]{%
+\luaexec{
+  tex.sprint(#1 + #2)
+}}
+
+\makeatletter
+\renewcommand{\maketitle}{%
+{\scriptsize colle dans ton cahier d'exercices, et écrit dans ton cahier} \vspace{0.5em}
+
+	\begin{center}
+		\LARGE
+		\myuline{\@title}
+		\vspace{1em}
+	\end{center}
+}
+\makeatother
+
+\title{Activité : mesurer le temps}
+\date{}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\section{Cadrans solaires}
+
+\begin{greybox}[frametitle={Point historique}]
+	Les \textbf{cadrans solaires} sont des outils pour mesurer le temps. Leur première apparition date d'il y a environ 2400 ans !
+\end{greybox}
+
+\begin{attention}[frametitle={Comment ça fonctionne ?}]
+	\begin{center}
+		\includegraphics[width=0.2\linewidth]{Images/cadran solaire.jpeg}
+	\end{center}
+
+	Lorsqu'il y a du soleil, l'aiguille fait de l'ombre sur le cadran : cette ombre indique l'heure qu'il est.
+\end{attention}
+
+{\small \begin{vocabulaire}[Schéma]
+	Un \textbf{schéma} est une représentation simpifiée d'un objet.
+\end{vocabulaire}}
+
+On a schématisé un cadran solaire ci dessous: \vspace{1em}
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (4,0) arc(0:-180:4cm);
+
+		\draw[ultra thick,|-] (0,0) -- (0,-2);
+		\draw[very thick,rotate around={56.25:(0,0)}] (0,0) -- (-4.2,0);
+
+		\node at (1,-1) {\footnotesize ← Aiguille};
+		\node at (-1.5,-0.7) {\footnotesize Ombre →};
+
+		\draw (4,0) -- (3,0);
+		\foreach \angle in {-15,-30,-45,-60,-75,-90,-105,-120,-135,-150,-165,-180} {
+				\draw[rotate around={\angle:(0,0)}] (4,0) -- (3,0);
+				\draw[rotate around={\directlua{myAdd(\angle, 7.5)}:(0,0)}] (4,0) -- (3.5,0);
+			}
+	\end{tikzpicture}
+\end{center} \vspace{1em}
+
+\begin{enumerate}
+	\item Compte le nombre de grandes graduations : à quoi correspondent-elles ? (indice : le cadran solaire ne fonctionne que de jour). \vspace{0.6em}
+
+	      ........................................................................................................................
+	\item On imagine que là où ce cadran est placé, le soleil se lève à droite du cadran à 8 heures, et se couche à gauche à 20 heures.
+
+	      Indique sur le schéma les heures de la journée.
+	\item À quoi correspondent les petites graduations ? \vspace{0.6em}
+
+	      ........................................................................................................................
+	\item Quelle heure est indiquée sur ce cadran ? Précise les minutes. \vspace{0.6em}
+
+	      ........................................................................................................................
+\end{enumerate}
+
+\section{L'horloge hydraulique}
+\section{Sabliers}
+
+\section{Aujourd'hui : l'horloge atomique}
+
+\begin{greybox}[frametitle={Point historique}]
+	La première horloge atomique a été inventée en 1948. Elles sont aujourd'hui utilisée lorqu'on a besoin de mesurer très précisément le temps (c'est-à-dire souvent !).
+
+	TODO: temps international ?
+\end{greybox}
+
+\begin{attention}[frametitle={Comment ça fonctionne ?}]
+	La plupart de ces horloges utilisent du \textbf{césium}, un type de métal.
+
+	Le césium bouge (il "oscille") de manière régulière : \squared{9 192 631 770} fois \textbf{par seconde} ! L'horloge compte donc ces mouvements pour suivre l'évolution du temps.
+\end{attention}
+
+\begin{enumerate}
+	\item Le nombre de d'oscillations du césium est-il proportionnel au temps en secondes ? \vspace{0.6em}
+
+	      ........................................................................................................................
+
+	      Est-il proportionnel au temps en minutes ? \vspace{0.6em}
+
+	      ........................................................................................................................
+	\item Une horloge atomique se trompe de temps en temps : une très bonne horloge gagne $\frac{2}{10^{16}}$ seconde de décalage \textbf{chaque seconde} ($10^{16} = $ un 1 suivi de 16 zéros).
+
+	      Au bout de combien d'années une telle horloge aura-elle gagné 1 seconde de décalage ? \vspace{0.6em}
+
+	      ........................................................................................................................
+\end{enumerate}
+
+\end{document}
