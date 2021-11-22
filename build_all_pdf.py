@@ -179,11 +179,11 @@ def print_help(exit_code: int):
     sys.exit(exit_code)
 
 
-def main(argv):
+def main(args: list):
     path = "."
     try:
         opts, args = getopt.getopt(
-            argv, "hp:", ["help", "path=", "clean", "clean-all"])
+            args, "hp:", ["help", "path=", "clean", "clean-all"])
     except getopt.GetoptError:
         print(Fore.RED + "ERROR: invalid arguments" + Fore.RESET)
         print_help(2)

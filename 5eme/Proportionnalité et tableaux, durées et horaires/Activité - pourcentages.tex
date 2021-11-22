@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt]{article}
+\documentclass[a4paper,12pt]{article}
 
 \usepackage{../préambule}
 \usetikzlibrary{positioning}
@@ -14,7 +14,7 @@
 }
 \makeatother
 
-\title{Activité: proportionnalités}
+\title{Activité: pourcentages}
 \date{}
 \author{}
 
@@ -23,29 +23,16 @@
 \maketitle
 
 \begin{attention}[frametitle={Exercice 1}]
-	On dispose de la figure suivante : \vspace{1em}
+	On a dans un entrepôt des boites empilées les unes sur les autres :
 
-	\begin{center}
-		\begin{tikzpicture}[scale=0.8]
-			\coordinate (A) at (0,0);
-			\coordinate (B) at (3,0);
-			\coordinate (C) at (2.5,6);
-			\coordinate (D) at (0.5,6);
-			\coordinate (E) at (1.5,7);
+	\begin{itemize}
+		\item la première fait 4 centimètres de côté.
+		\item la deuxième, posée sur la première, fait $50\%$ de la taille de la première.
+		\item la troisième, posée \textbf{à droite} de la première, fait $125\%$ de la taille de la première.
+		\item la quatrième, posée sur la troisième, fait $40\%$ de la taille de la troisième.
+	\end{itemize}
 
-			\draw (A) -- (B) -- (C) -- (D) -- (A);
-			\draw (C) -- (E) -- (D);
-
-			\draw[<->] ([yshift=-0.2cm] A) -- node[anchor=north] {3cm} ([yshift=-0.2cm] B);
-			\draw[<->] ([xshift=0.2cm] B) -- node[anchor=west] {6cm} ([xshift=0.2cm] C);
-			\draw[<->] ([yshift=-0.2cm] D) -- node[anchor=north] {2cm} ([yshift=-0.2cm] C);
-			\draw[<->] ([xshift=0.15cm,yshift=0.05cm] C) -- node[anchor=west] {1,5cm} ([xshift=0.15cm,yshift=0.05cm] E);
-		\end{tikzpicture}
-	\end{center}
-
-	Reproduit cette figure dans ton cahier, \textbf{en faisant en sorte que la base de la tour fasse 5cm}.
-
-	(Calcule les dimensions de la deuxième tour avant de dessiner, grâce à la proportionnalité !)
+	Dessine toutes ces boîtes sur ton cahier d'exercices.
 \end{attention}
 
 \begin{attention}[frametitle={Exercice 2}]
