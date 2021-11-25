@@ -8,6 +8,7 @@
 \setmathfont{TeX Gyre DejaVu Math}
 \usepackage[french]{babel}    % françisation partielle de l'output
 \usepackage{natbib}             % bibliographie
+\usepackage[a4paper,top=1cm,bottom=1cm,left=2cm,right=2cm]{geometry} % Mise en page, marges
 \usepackage{amsthm}             % maths
 \usepackage{amsmath}            % maths
 \usepackage{graphicx}           % figures
@@ -30,17 +31,11 @@
 \usepackage{tabularx} % meileurs tableaux
 \usepackage{luacode} % \begin{luacode} ... \end{luacode}
 \usepackage{wrapfig} % Texte autour d'images
+\usepackage{awesomebox} % Diverse boites de texte
 
 % renommage de la table des matières
 \addto\captionsfrench{\renewcommand*\contentsname{Nom de la table des matières}}
 \setcounter{tocdepth}{1}
-
-% marges
-\addtolength{\oddsidemargin}{-1.5cm}
-\addtolength{\evensidemargin}{-1.5cm}
-\addtolength{\textwidth}{3cm}
-\addtolength{\topmargin}{-3cm}
-\addtolength{\textheight}{5cm}
 
 % Symboles des listes
 \setlist[itemize,1]{label=•}
@@ -205,7 +200,7 @@
   \@ifnextchar[{\methode@opt}{\orig@methode}
 }
 \def\methode@opt[#1]{
-  \orig@methode[frametitle={Cours : #1}]
+  \orig@methode[frametitle={Méthode : #1}]
 }
 \makeatother
 
