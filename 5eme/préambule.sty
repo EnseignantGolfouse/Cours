@@ -1,5 +1,7 @@
 % !TeX program = lualatex
 
+% This is meant to be used with document class 'article' or 'beamer'.
+
 \ProvidesPackage{préambule}
 
 \usepackage{fontspec}           % Pour changer la police
@@ -7,19 +9,29 @@
 \usepackage{unicode-math}       % Symboles unicodes en mode math
 \setmathfont{TeX Gyre DejaVu Math}
 \usepackage[french]{babel}    % françisation partielle de l'output
-\usepackage{natbib}             % bibliographie
-\usepackage[a4paper,top=1cm,bottom=1cm,left=2cm,right=2cm]{geometry} % Mise en page, marges
+\makeatletter
+\@ifclassloaded{article}
+{
+\usepackage[a4paper,top=1cm,bottom=1cm,left=2cm,right=2cm]{geometry}  % Mise en page, marges
+}
+{}
+\makeatother
 \usepackage{amsthm}             % maths
+\usepackage{bm}                 % bold maths
 \usepackage{amsmath}            % maths
 \usepackage{graphicx}           % figures
 \usepackage{titlesec}           % permet de changer l'affichage des sections et autres
 \usepackage{color}              % couleurs rgb
+\makeatletter
+\@ifclassloaded{article}
+{
 \usepackage[dvipsnames,table]{xcolor} % plus de couleurs
+}
+{}
 \usepackage[tikz]{mdframed}     % boites fancy autour des théorèmes et autres
 \usepackage{contour}            % Pour souligner
 \usepackage{ulem}               % Pour souligner
 \usetikzlibrary{shadows}        % effet d'ombre sur les boites ('shadow = true')
-\usetikzlibrary{calc}           % Utilise 'let' dans une tikzpicture.
 \usepackage{nopageno}           % pas de numéros de page
 \usepackage[makeroom]{cancel}   % texte barré
 \usepackage{hyperref}           % références
@@ -32,10 +44,7 @@
 \usepackage{luacode} % \begin{luacode} ... \end{luacode}
 \usepackage{wrapfig} % Texte autour d'images
 \usepackage{awesomebox} % Diverse boites de texte
-
-% renommage de la table des matières
-\addto\captionsfrench{\renewcommand*\contentsname{Nom de la table des matières}}
-\setcounter{tocdepth}{1}
+\usepackage{fontawesome} % Icône web (via \faicon{...})
 
 % Symboles des listes
 \setlist[itemize,1]{label=•}
@@ -164,6 +173,8 @@
 \newmdenv[style=applicationstyle]{application}
 \newmdenv[style=coursstyle]{cours}
 \newmdenv[style=methodestyle]{methode}
+\let\definition\@undefined
+\let\enddefinition\@undefined
 \newmdenv[style=greenstyle]{definition}
 \newmdenv[style=vocabulairestyle]{vocabulaire}
 \newmdenv[style=redstyle]{attention}

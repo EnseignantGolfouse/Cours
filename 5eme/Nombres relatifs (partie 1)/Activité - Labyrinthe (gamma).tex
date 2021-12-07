@@ -4,6 +4,10 @@
 \usepackage{clipboard}
 \usetikzlibrary{calc}
 
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\newcommand{\skull}{\text{\usefont{U}{skulls}{m}{n}\symbol{'101}}}
+
 \newcommand{\myAdd}[2]{\directlua{tex.print(#1 + #2)}}
 
 \begin{luacode}
@@ -19,7 +23,7 @@
 		 	if i ~= 1 then
 		 		tex.sprint(" -- ")
 		 	end
-		 	tex.sprint("(", p.x / 2 + 3.5, ",", p.y / 2 + 2.5, ")")
+		 	tex.sprint("(", p.x, ",", p.y, ")")
 		end
 		tex.sprint(";")
 	end
@@ -45,36 +49,58 @@
 	}
 
 	{\large \textbf{Coordonnées γ :}}
-	\begin{multicols}{2}
-		\begin{enumerate}[label={\Alph*}]
-			\directlua{print_items(points)}
-		\end{enumerate}
-	\end{multicols}
+	Ton camarade a la même carte, mais il ne sait pas qu'il y a des monstres sur certaines voies ! \\
+	Décris-lui un chemin qui évite les monstres ({\color{red} \circled{\skull}}).
 
-	\vspace{2em}
-	\hrule
-	\vspace{2em}
-
-	\textbf{Labyrinthe γ :} \vspace{1em}
-
-	\begin{tikzpicture}[scale=1.3]
-		\draw[gray,ultra thin,->] (-1,2.5) -- (8,2.5);
-		\draw[gray,ultra thin,->] (3.5,-1) -- (3.5,6);
-		\node[below left] at (3.5,2.5) {0};
+	\begin{tikzpicture}[scale=0.5]
+		\draw[gray,ultra thin,->] (-9,0) -- (9,0);
+		\draw[gray,ultra thin,->] (0,-6) -- (0,8);
+		\node[below left] at (0,0) {\scriptsize 0};
 
 		\foreach \x in {-6,-4,-2,2,4,6} {
-				\draw[very thin] (\directlua{tex.sprint(\x / 2 + 3.5)},2.5) -- (\directlua{tex.sprint(\x / 2 + 3.5)},2.35) node[below] {\scriptsize \x};
+				\draw[very thin] (\x,0) -- (\x,-0.15) node[below] {\scriptsize \x};
 			}
 
 		\foreach \y in {-4,-2,2,4,6} {
-				\draw[very thin] (3.5,\directlua{tex.sprint(\y / 2 + 2.5)}) -- (3.35,\directlua{tex.sprint(\y / 2 + 2.5)}) node[left] {\scriptsize \y};
+				\draw[very thin] (0,\y) -- (-0.15,\y) node[left] {\scriptsize \y};
 			}
 
-		\draw[ultra thick] (1,2) -- (2,2) -- (2,3) -- (0,5) -- (0,0) -- (7,0) -- (7,5);
-		\draw[ultra thick] (5,4) -- (2,4) -- (0,6) -- (7,6);
-		\draw[ultra thick] (2,6) -- (3,5) -- (6,5) -- (6,4) -- (5,3) -- (3,3) -- (3,1) -- (1,1);
-		\draw[ultra thick] (4,0) -- (4,2);
-		\draw[ultra thick] (5,2) -- (5,1) -- (6,1) -- (6,3);
+		\draw[ultra thick,red,->] (-8,6) -- (-7,6);
+		\draw[ultra thick,red,->] (7,6) -- (8,6);
+
+		\draw[ultra thick] (-5,-1) -- (-3,-1) -- (-3,1) -- (-7, 5) -- (-7,-5) -- (7,-5) -- (7,5);
+		\draw[ultra thick] (-5,-3) -- (-1,-3) -- (-1,1) -- (3,1) -- (5,3) -- (5,5) -- (-1,5) -- (-3,7);
+		\draw[ultra thick] (1,-1) -- (1,-5);
+		\draw[ultra thick] (3,-1) -- (3,-3) -- (5,-3) -- (5,1);
+		\draw[ultra thick] (3,3) -- (-3,3) -- (-7,7) -- (7,7);
+
+		\node[red] at (2,4) {\circled{\skull}};
+		\node[red] at (2,-2) {\circled{\skull}};
+	\end{tikzpicture}
+
+	\hrule
+	\vspace{1em}
+
+	\textbf{Labyrinthe γ :} \vspace{1em}
+
+	\begin{tikzpicture}[scale=0.6]
+		\draw[gray,ultra thin,->] (-9,0) -- (9,0);
+		\draw[gray,ultra thin,->] (0,-6) -- (0,8);
+		\node[below left] at (0,0) {\scriptsize 0};
+
+		\foreach \x in {-6,-4,-2,2,4,6} {
+				\draw[very thin] (\x,0) -- (\x,-0.15) node[below] {\scriptsize \x};
+			}
+
+		\foreach \y in {-4,-2,2,4,6} {
+				\draw[very thin] (0,\y) -- (-0.15,\y) node[left] {\scriptsize \y};
+			}
+
+		\draw[ultra thick] (-5,-1) -- (-3,-1) -- (-3,1) -- (-7, 5) -- (-7,-5) -- (7,-5) -- (7,5);
+		\draw[ultra thick] (-5,-3) -- (-1,-3) -- (-1,1) -- (3,1) -- (5,3) -- (5,5) -- (-1,5) -- (-3,7);
+		\draw[ultra thick] (1,-1) -- (1,-5);
+		\draw[ultra thick] (3,-1) -- (3,-3) -- (5,-3) -- (5,1);
+		\draw[ultra thick] (3,3) -- (-3,3) -- (-7,7) -- (7,7);
 
 		% \directlua{print_path(points)}
 	\end{tikzpicture}

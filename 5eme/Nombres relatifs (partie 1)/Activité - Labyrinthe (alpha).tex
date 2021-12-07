@@ -1,9 +1,8 @@
 \documentclass[a4paper,11pt,landscape,twocolumn]{article}
 
 \usepackage{../préambule}
+\usepackage{clipboard}
 \usetikzlibrary{calc}
-
-\newcommand{\myAdd}[2]{\directlua{tex.print(#1 + #2)}}
 
 \begin{luacode}
 	function print_items(points)
@@ -18,7 +17,7 @@
 		 	if i ~= 1 then
 		 		tex.sprint(" -- ")
 		 	end
-		 	tex.sprint("(", p.x - 0.5, ",", p.y - 0.5, ")")
+		 	tex.sprint("(", p.x, ",", p.y, ")")
 		end
 		tex.sprint(";")
 	end
@@ -41,102 +40,41 @@
 		}
 }
 
-{\large \textbf{Coordonnées α :}}
-\begin{enumerate}[label={\Alph* :}]
-	\directlua{print_items(points)}
-\end{enumerate}
+\Copy{alpha}{
+	{\large \textbf{Coordonnées α :}}
+	\begin{enumerate}[label={\Alph* :}]
+		\directlua{print_items(points)}
+	\end{enumerate}
 
-\vspace{2em}
-\hrule
-\vspace{2em}
+	\vspace{2em}
+	\hrule
+	\vspace{2em}
 
-\textbf{Labyrinthe α :} \vspace{1em}
+	\textbf{Labyrinthe α :} \vspace{1em}
 
-\begin{tikzpicture}[scale=1.5]
-	\draw[very thick,->] (-0.5,-0.5) -- (5,-0.5);
-	\draw[very thick,->] (-0.5,-0.5) -- (-0.5,5);
-	\node[below left] at (-0.5,-0.5) {0};
-	\foreach \x in {1,...,5} {
-			\draw[thick] (\myAdd{\x}{-0.5},-0.5) -- (\myAdd{\x}{-0.5},-0.7) node[below] {\x};
-			\draw[thick] (-0.5,\myAdd{\x}{-0.5}) -- (-0.7,\myAdd{\x}{-0.5}) node[left] {\x};
-		}
+	\begin{tikzpicture}[scale=1.5]
+		\draw[very thick,->] (0,0) -- (5.5,0);
+		\draw[very thick,->] (0,0) -- (0,5.5);
+		\node[below left] at (0,0) {0};
+		\foreach \x in {1,...,5} {
+				\draw[thick] (\x,0) -- (\x,-0.2) node[below] {\x};
+				\draw[thick] (0,\x) -- (-0.2,\x) node[left] {\x};
+			}
 
-	\foreach \xa/\ya/\xb/\yb in {
-			0/0/0/5,
-			1/0/5/0,
-			0/5/4/5,
-			5/0/5/5,
-			0/2/2/2,
-			1/3/1/5,
-			1/1/3/1,
-			3/1/3/4,
-			3/4/2/4,
-			4/0/4/2,
-			4/3/4/5
-		} {
-			\draw[ultra thick] (\xa,\ya) -- (\xb,\yb);
-		}
+		\draw[ultra thick] (0.5,0.5) -- ++(0,5) -- ++(4,0) -- ++(0,-2);
+		\draw[ultra thick] (0.5,2.5) -- ++(2,0);
+		\draw[ultra thick] (1.5,3.5) -- ++(0,2);
+		\draw[ultra thick] (1.5,1.5) -- ++(2,0) -- ++(0,3) -- ++(-1,0);
+		\draw[ultra thick] (1.5,0.5) -- ++(4,0) -- ++(0,5);
+		\draw[ultra thick] (4.5,0.5) -- ++(0,2);
 
-	% \directlua{print_path(points)}
-\end{tikzpicture}
+		% \directlua{print_path(points)}
+	\end{tikzpicture}
+}
 
 
 \newpage
 
-\directlua{
-	points = {
-			{ x = 1, y = 1 },
-			{ x = 4, y = 1 },
-			{ x = 4, y = 2 },
-			{ x = 1, y = 2 },
-			{ x = 1, y = 3 },
-			{ x = 2, y = 3 },
-			{ x = 2, y = 5 },
-			{ x = 4, y = 5 },
-			{ x = 4, y = 4 },
-			{ x = 5, y = 4 },
-			{ x = 5, y = 5 },
-		}
-}
-
-{\large \textbf{Coordonnées α :}}
-\begin{enumerate}[label={\Alph* :}]
-	\directlua{print_items(points)}
-\end{enumerate}
-
-\vspace{2em}
-\hrule
-\vspace{2em}
-
-\textbf{Labyrinthe α :} \vspace{1em}
-
-\begin{tikzpicture}[scale=1.5]
-	\draw[very thick,->] (-0.5,-0.5) -- (5,-0.5);
-	\draw[very thick,->] (-0.5,-0.5) -- (-0.5,5);
-	\node[below left] at (-0.5,-0.5) {0};
-	\foreach \x in {1,...,5} {
-			\draw[thick] (\myAdd{\x}{-0.5},-0.5) -- (\myAdd{\x}{-0.5},-0.7) node[below] {\x};
-			\draw[thick] (-0.5,\myAdd{\x}{-0.5}) -- (-0.7,\myAdd{\x}{-0.5}) node[left] {\x};
-		}
-
-	\foreach \xa/\ya/\xb/\yb in {
-			0/0/0/5,
-			1/0/5/0,
-			0/5/4/5,
-			5/0/5/5,
-			0/1/3/1,
-			1/3/1/5,
-			1/2/2/2,
-			2/2/2/4,
-			4/0/4/3,
-			4/3/3/3,
-			3/3/3/4,
-			4/5/4/4
-		} {
-			\draw[ultra thick] (\xa,\ya) -- (\xb,\yb);
-		}
-
-	% \directlua{print_path(points)}
-\end{tikzpicture}
+\Paste{alpha}
 
 \end{document}
