@@ -6,9 +6,11 @@
 
 \usepackage{fontspec}           % Pour changer la police
 \setmainfont[Ligatures=TeX]{DejaVuSans} % Police avec support pour l'UTF-8
-\usepackage{unicode-math}       % Symboles unicodes en mode math
+\usepackage[math-style=french]{unicode-math}       % Symboles unicodes en mode math
 \setmathfont{TeX Gyre DejaVu Math}
+\setmathfont{TeX Gyre DejaVu Math}[version=bold,math-style=ISO,FakeBold = 3]
 \usepackage[french]{babel}    % françisation partielle de l'output
+\DecimalMathComma
 \makeatletter
 \@ifclassloaded{article}
 {

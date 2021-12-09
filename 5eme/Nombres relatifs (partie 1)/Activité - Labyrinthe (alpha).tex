@@ -1,6 +1,6 @@
 \documentclass[a4paper,11pt,landscape,twocolumn]{article}
 
-\usepackage{../préambule}
+\usepackage{../../préambule}
 \usepackage{clipboard}
 \usetikzlibrary{calc}
 
@@ -57,8 +57,8 @@
 		\draw[very thick,->] (0,0) -- (0,5.5);
 		\node[below left] at (0,0) {0};
 		\foreach \x in {1,...,5} {
-				\draw[thick] (\x,0) -- (\x,-0.2) node[below] {\x};
-				\draw[thick] (0,\x) -- (-0.2,\x) node[left] {\x};
+				\draw[thick] (\x,0) -- ++(0,-0.2) node[below] {\x};
+				\draw[thick] (0,\x) -- ++(-0.2,0) node[left] {\x};
 			}
 
 		\draw[ultra thick] (0.5,0.5) -- ++(0,5) -- ++(4,0) -- ++(0,-2);
