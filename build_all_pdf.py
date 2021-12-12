@@ -5,26 +5,76 @@ import subprocess
 import os
 import sys
 import getopt
+from concurrent.futures import ThreadPoolExecutor
 from colorama import Fore
 
 
 def find_tex_files_in(directory: str) -> list:
     """
     Recursively find all `.tex` files in `directory`.
-    Returns a list of `(dir, file)`, where `dir` is the directory where the file was found, and `file` is the base name of the file.
+    Returns a list of `(dir, file)`, where
+    - `dir` is the directory where the file was found
+    - `file` is the base name of the file.
     """
     result: list = []
     for item in os.listdir(directory):
         name: str = os.path.join(directory, item)
         if os.path.isfile(name):
-            if item.endswith(".tex"):
-                result.append((directory, item))
+            if name.endswith(".tex"):
+                result.append((directory, item, name[:-4]))
         elif os.path.isdir(name):
             result.extend(find_tex_files_in(name))
     return result
 
 
-def compile_all(path: str, artifacts_dir: str, output_dir: str):
+def compile_file(working_dir: str, build_dir: str, output_dir: str, file_tex: str) -> bool:
+    """
+    Returns `None` if no error happened.
+    Else, returns the error message.
+    # Parameters
+    - `working_dir` is the absolute directory in which subprocesses will be executed.
+    - `build_dir` is the absolute directory in which to place intermediary build artifacts.
+    - `output_dir` is a directory, relative to `working_dir`, in which to place the resulting pdf.
+    - `file_tex` is the path of the input .tex file, relative to `working_dir`.   """
+    file_pdf: str = file_tex[:-4] + ".pdf"
+    error = None
+    try:
+        subprocess.check_output(
+            args=[
+                "latexmk",
+                "-lualatex",
+                "-output-directory=" + build_dir,
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                file_tex
+            ],
+            stderr=subprocess.STDOUT,
+            cwd=working_dir)
+        subprocess.check_output(
+            args=["mkdir", "-p", os.path.join(working_dir, output_dir)],
+            stderr=subprocess.STDOUT,
+            cwd=working_dir
+        )
+        subprocess.check_output(
+            args=[
+                "cp",
+                os.path.join(build_dir, file_pdf),
+                os.path.join(working_dir, output_dir, file_pdf),
+            ],
+            stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError as process_error:
+        error = process_error.output.decode("utf-8")
+    except Exception as e:
+        raise e
+    finally:
+        if error != None:
+            return error
+        else:
+            return None
+
+
+def compile_all(path: str, artifacts_dir: str, pdf_dir: str, jobs: int):
     """
     Find and compile all `.tex` files in the current directory (and all its subdirectories).
 
@@ -33,53 +83,53 @@ def compile_all(path: str, artifacts_dir: str, output_dir: str):
 
     The compiling command is `latexmk -lualatex -output-directory=<artifacts_dir> -synctex=1 -interaction=nonstopmode -file-line-error`.
     """
+
+    build_dir: str = os.path.abspath(artifacts_dir)
+    package_dir: str = os.path.abspath(os.path.join(build_dir, os.path.pardir))
+
+    os.environ["TEXINPUTS"] = "::" + package_dir
+
     tex_files: list = find_tex_files_in(path)
     total_ok: int = 0
     total_err: int = 0
     total_files: int = len(tex_files)
     failed_files: list = []
-    root_dir: str = os.path.abspath(".")
-    build_dir: str = os.path.join(root_dir, artifacts_dir)
     file_number: int = 1
-    for (directory, file_tex) in tex_files:
-        print(
-            Fore.CYAN + f"{file_number}/{total_files} " + Fore.RESET
-            + os.path.join(directory, file_tex),
-            end="")
 
-        file_pdf: str = file_tex[:len(file_tex)-4] + ".pdf"
-        os.chdir(directory)
-        try:
-            subprocess.check_output([
-                "latexmk",
-                "-lualatex",
-                "-output-directory=" + build_dir,
-                "-synctex=1",
-                "-interaction=nonstopmode",
-                "-file-line-error",
-                file_tex
-            ], stderr=subprocess.STDOUT)
-            subprocess.check_output(
-                ["mkdir", "-p", output_dir],
-                stderr=subprocess.STDOUT
-            )
-            subprocess.check_output([
-                "cp",
-                os.path.join(build_dir, file_pdf),
-                os.path.join(output_dir, file_pdf),
-            ],  stderr=subprocess.STDOUT)
-            total_ok += 1
-            print("  " + Fore.GREEN + "OK" + Fore.RESET)
-        except subprocess.CalledProcessError as process_error:
-            total_err += 1
-            failed_files.append(os.path.join(directory, file_tex))
-            print("  " + Fore.RED + "[ERROR]" + Fore.RESET)
-            print(process_error.output.decode("utf-8"))
-        except Exception as e:
-            raise e
-        finally:
-            os.chdir(root_dir)
+    # to_join: list = []
+    results: list = []
+
+    with ThreadPoolExecutor(max_workers=jobs) as executor:
+        for (directory, file_tex, file_hash) in tex_files:
+            file_build_dir = os.path.abspath(
+                os.path.join(build_dir, str(file_hash)))
+            results.append(
+                (
+                    executor.submit(
+                        compile_file,
+                        os.path.abspath(directory),
+                        file_build_dir,
+                        pdf_dir,
+                        file_tex
+                    ),
+                    os.path.join(directory, file_tex)
+                ))
+        for (future, file_tex) in results:
+            error = future.result()
+            print(
+                Fore.CYAN + f"{file_number}/{total_files} " + Fore.RESET
+                + file_tex,
+                end="")
             file_number += 1
+            if error == None:
+                total_ok += 1
+                print("  " + Fore.GREEN + "OK" + Fore.RESET)
+            else:
+                total_err += 1
+                print("  " + Fore.RED + "[ERROR]" + Fore.RESET)
+                print(error)
+                failed_files.append(file_tex)
+
     print()
     print()
     print("    OK:", total_ok, ", ERR:", total_err)
@@ -101,7 +151,7 @@ def clean(path: str, output_dir: str):
     tex_files: list = find_tex_files_in(path)
 
     tex_files_dict = {}
-    for (directory, tex_file) in tex_files:
+    for (directory, tex_file, _) in tex_files:
         if tex_files_dict.get(directory) == None:
             tex_files_dict[directory] = [tex_file]
         else:
@@ -153,7 +203,7 @@ def clean_all(path: str, artifacts_dir: str, output_dir: str):
         ], stderr=subprocess.STDOUT)
     except Exception as e:
         raise e
-    for (directory, file_tex) in tex_files:
+    for (directory, file_tex, _) in tex_files:
         pdf_dir = os.path.join(directory, output_dir)
         if os.path.exists(pdf_dir):
             print("removing ", pdf_dir)
@@ -174,6 +224,7 @@ def print_help(exit_code: int):
     print("OPTIONS:")
     print("    -h, --help             Prints help information")
     print("    -p, --path <PATH>      Only build tex files under PATH. This defaults to the current directory.")
+    print("    -j, --jobs <INT>       The maximum numbers of parallel processes. Defaults to the number of processors of the machine.")
     print("        --clean <PATH>     Remove pdf without associated .tex file.")
     print("        --clean-all <PATH> Clean all pdfs.")
     sys.exit(exit_code)
@@ -183,16 +234,19 @@ def main(args: list):
     path = "."
     try:
         opts, args = getopt.getopt(
-            args, "hp:", ["help", "path=", "clean", "clean-all"])
+            args, "hpj:", ["help", "path=", "jobs=", "clean", "clean-all"])
     except getopt.GetoptError:
         print(Fore.RED + "ERROR: invalid arguments" + Fore.RESET)
         print_help(2)
     cleaning_level: int = 0
+    number_of_cpus: int = os.cpu_count()
     for opt, arg in opts:
         if opt in ("-h", "--help"):
             print_help(0)
         elif opt in ("-p", "--path"):
             path = arg
+        elif opt in ("-j", "--jobs"):
+            number_of_cpus = int(arg)
         elif opt in ("--clean"):
             cleaning_level = 1
         elif opt in ("--clean-all"):
@@ -211,7 +265,7 @@ def main(args: list):
         else:
             print("aborting clean.")
     else:
-        compile_all(path, ".build", "pdf")
+        compile_all(path, ".build", "pdf", number_of_cpus)
 
 
 if __name__ == "__main__":
