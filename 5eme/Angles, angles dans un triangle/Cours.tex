@@ -41,7 +41,7 @@
 \end{rappel}
 
 \begin{rappel}
-	Si on a deux droite $(d₁)$ et $(d₂)$ qui s'intersectent en $D$, l'angle que forment ces deux droite est appelé $d₁Dd₂$.
+	Si on a deux droite $(d₁)$ et $(d₂)$ qui s'intersectent en $D$, l'angle que forment ces deux droite est appelé $\widehat{d₁Dd₂}$.
 
 	\begin{tikzpicture}
 		\coordinate (A) at (-1,1);
@@ -57,31 +57,35 @@
 	\end{tikzpicture}
 \end{rappel}
 
+\begin{rappel}
+	Le nombre qui indique l'écartement d'un angle est appelé sa \textbf{mesure}.
+\end{rappel}
+
 \section{Angles alternes-internes}
 
 % TODO: trouver une meilleure explication.
 \begin{cours}[Angles alternes-internes]
-	Soit $(d)$ et $(d')$ des droites, et $(s)$ une droite qui intersecte $(d)$ et $(d')$ en $A$ et $B$.
+	Soit $(d₁)$ et $(d₂)$ des droites, et $(s)$ une droite qui intersecte $(d₁)$ et $(d₂)$ en $A$ et $B$.
 
 	Alors, deux angles sont \textbf{alternes-internes} si:
 	\begin{itemize}
 		\item Ils ont pour sommet $A$ et $B$.
 		\item Ils sont chacun d'un côté différent de la droite $(s)$.
-		\item Ils sont entre les droites $(d)$ et $(d')$.
+		\item Ils sont entre les droites $(d₁)$ et $(d₂)$.
 	\end{itemize}
 
 	\begin{tikzpicture}
-		\coordinate (dprimestart) at (-2,-1);
+		\coordinate (d2start) at (-2,-1);
 
-		\draw[name path=d] (-2,1) node[above] (dstart) {$(d)$} -- (4,2) coordinate (dend);
-		\draw[name path=dprime] (dprimestart) node [above] {$(d')$} -- (4,-2) coordinate (dprimeend);
+		\draw[name path=d1] (-2,1) node[above] (d1start) {$(d₁)$} -- (4,2) coordinate (d1end);
+		\draw[name path=d2] (d2start) node [above] {$(d₂)$} -- (4,-2) coordinate (d2end);
 		\draw[name path=s] (3.5,2.5) node[left] {$(s)$} -- (0,-2);
 
-		\path[name intersections={of= d and s,by=A}];
-		\path[name intersections={of= dprime and s,by=B}];
+		\path[name intersections={of= d1 and s,by=A}];
+		\path[name intersections={of= d2 and s,by=B}];
 
-		\draw pic[draw,fill=orange!30,angle radius=0.5cm] {angle=B--A--dend};
-		\draw pic[draw,fill=violet!30,angle radius=0.5cm] {angle=A--B--dprimestart};
+		\draw pic[draw,fill=orange!30,angle radius=0.5cm] {angle=B--A--d1end};
+		\draw pic[draw,fill=violet!30,angle radius=0.5cm] {angle=A--B--d2start};
 	\end{tikzpicture}
 \end{cours}
 
@@ -127,5 +131,67 @@
 	\end{itemize}
 \end{exemple}
 
+\begin{cours}
+	Si deux droites parallèles sont coupées par une sécante, les angles alternes-internes ont la même mesure.
+\end{cours}
+
+\begin{exemple}
+	\begin{minipage}[c]{0.45\textwidth}
+		\begin{tikzpicture}
+			\node at (-2,3) {(d₁) // (d₂)};
+			\coordinate (d2start) at (-2,-1);
+
+			\draw[name path=d1] (-2,1) node[above] (d1start) {$(d₁)$} -- (3.5,2) coordinate (d1end);
+			\draw[name path=d2] (d2start) node [above] {$(d₂)$} -- (3.5,0) coordinate (d2end);
+			\draw[name path=s] (2.5,2.5) node[left] {$(s)$} -- (-0.5,-1);
+
+			\path[name intersections={of= d1 and s,by=A}];
+			\path[name intersections={of= d2 and s,by=B}];
+
+			\draw pic[draw,fill=Green!30,angle radius=0.5cm] {angle=B--A--d1end};
+			\draw pic[draw,fill=Green!30,angle radius=0.5cm] {angle=A--B--d2start};
+		\end{tikzpicture}
+	\end{minipage} \hspace{1em}
+	\begin{minipage}{0.45\textwidth}
+		Les droites (d₁) et (d₂) sont parallèles, donc les angles {\color{Green} verts} ont la même mesure.
+	\end{minipage}
+\end{exemple}
+
+\section{Angles dans un triangle}
+
+\begin{cours}
+	La somme des mesures des angles d'un triangle est égale à 180°.
+\end{cours}
+
+\begin{exemple}
+	\begin{minipage}{0.5\textwidth}
+		\begin{tikzpicture}
+			\coordinate (A) at (0,0);
+			\coordinate (B) at (6,0);
+			\coordinate (C) at (3,3);
+
+			\node[above left] at (A) {A};
+			\node[above] at (C) {C};
+			\node[above right] at (B) {B};
+
+			\draw pic[draw,fill=red!30,angle radius=0.5cm] {angle=C--B--A};
+			\draw pic[draw,fill=blue!30,angle radius=0.5cm] {angle=B--A--C};
+			\draw pic[draw,fill=green!30,angle radius=0.5cm] {angle=A--C--B};
+
+			\draw (A) -- (B);
+			\draw (B) -- (C);
+			\draw (C) -- (A);
+		\end{tikzpicture}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		Dans la figure ci-contre, on a
+		\begin{itemize}
+			\item {\color{red} $\widehat{ABC} = 45°$}
+			\item {\color{Green} $\widehat{BCA} = 90°$}
+			\item {\color{blue} $\widehat{CAB} = 45°$}
+		\end{itemize}
+		Et on retrouve bien $45 + 90 + 45 = 180°$.
+	\end{minipage}
+\end{exemple}
 
 \end{document}
