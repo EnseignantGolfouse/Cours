@@ -141,9 +141,9 @@
 			\node at (-2,3) {(d₁) // (d₂)};
 			\coordinate (d2start) at (-2,-1);
 
-			\draw[name path=d1] (-2,1) node[above] (d1start) {$(d₁)$} -- (3.5,2) coordinate (d1end);
-			\draw[name path=d2] (d2start) node [above] {$(d₂)$} -- (3.5,0) coordinate (d2end);
-			\draw[name path=s] (2.5,2.5) node[left] {$(s)$} -- (-0.5,-1);
+			\draw[name path=d1] (-2,1) node[above] (d1start) {(d₁)} -- (3.5,2) coordinate (d1end);
+			\draw[name path=d2] (d2start) node [above] {(d₂)} -- (3.5,0) coordinate (d2end);
+			\draw[name path=s] (2.5,2.5) node[left] {(s)} -- (-0.5,-1);
 
 			\path[name intersections={of= d1 and s,by=A}];
 			\path[name intersections={of= d2 and s,by=B}];
@@ -154,6 +154,39 @@
 	\end{minipage} \hspace{1em}
 	\begin{minipage}{0.45\textwidth}
 		Les droites (d₁) et (d₂) sont parallèles, donc les angles {\color{Green} verts} ont la même mesure.
+	\end{minipage}
+\end{exemple}
+
+\section{Droites parallèles}
+
+\begin{cours}
+	Si deux droites (dont on ne sais pas encore si elles sont parallèles ou non) sont coupées par une sécante, et que les angles alternes-internes ont la même mesure, \textbf{alors} les droites sont parallèles.
+\end{cours}
+
+\begin{exemple}
+	\begin{minipage}[c]{0.45\textwidth}
+		\begin{tikzpicture}
+			\coordinate (d1start) at (-2,1);
+			\coordinate (d1end) at (3.5,2.5);
+			\coordinate (d2start) at (-2,-1);
+			\coordinate (d2end) at (3.5,0.5);
+
+			\draw[name path=d1] (d1start) node[above] {(d₁)} -- (d1end);
+			\draw[name path=d2] (d2start) node [above] {(d₂)} -- (d2end);
+			\draw[name path=s] (-1,-1.75) -- (2,3.5) node[left] {$(s)$};
+
+			\path[name intersections={of= d1 and s,by=A}];
+			\path[name intersections={of= d2 and s,by=B}];
+
+			\node[above left] at (A) {A};
+			\node[below right] at (B) {B};
+
+			\draw pic[draw,fill=red!50,angle radius=0.5cm,"135°" shift={(0.2cm,-0.5cm)}] {angle=B--A--d1end};
+			\draw pic[draw,fill=red!50,angle radius=0.5cm,"135°" shift={(-0.2cm,0.5cm)}] {angle=A--B--d2start};
+		\end{tikzpicture}
+	\end{minipage} \hspace{1em}
+	\begin{minipage}{0.45\textwidth}
+		Sur la figure ci-contre, les angles $\widehat{d₁As}$ et $\widehat{d₂Bs}$ on la même mesure, et sont alternes-internes. Donc, les droites (d₁) et (d₂) sont parallèles.
 	\end{minipage}
 \end{exemple}
 
