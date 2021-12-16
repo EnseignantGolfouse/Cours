@@ -261,6 +261,9 @@
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
 
-% Pour entourer un nombre par un carré
-\newcommand*\squared[1]{\tikz[baseline=(char.base)]{
-	\node[shape=rectangle,draw,inner sep=2pt] (char) {#1};}}
+% Pour entourer un nombre par un carré.
+% On peut optionnelement spécifier la couleur de fond.
+\newcommand{\squared}[2][white]{%
+\tikz[baseline=(char.base)]{%
+\node[shape=rectangle,draw,fill=#1,inner sep=2pt] (char) {#2};}%
+}

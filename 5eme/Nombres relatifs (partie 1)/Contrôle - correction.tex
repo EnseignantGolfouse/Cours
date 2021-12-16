@@ -102,7 +102,7 @@
 \end{question}
 
 \begin{question}[(2 points)]
-	\begin{enumerate}
+	\begin{enumerate}[1)]
 		\item Range les nombres suivants dans l'ordre croissant :
 
 		      5 ; 2,7 ; -2,6 ; -0,1 ; 7,1 ; -8,3
@@ -121,12 +121,12 @@
 	\begin{minipage}{0.45\textwidth}
 		Donne les coordonnées des points A, B, C, D, E, F, G et H.
 
-		{\color{red}\begin{tabular}{ll}
-				A(2 ; 3) \hspace{3em} & B(-3 ; 0) \\
-				C(0 ; 2)              & D(3 ; 2)  \\
-				E(4 ; 0)              & F(3 ; -2) \\
-				G(-5 ; -3)            & H(-2 ; 3)
-			\end{tabular}}
+			{\color{red}\begin{tabular}{ll}
+					A(2 ; 3) \hspace{3em} & B(-3 ; 0) \\
+					C(0 ; 2)              & D(3 ; 2)  \\
+					E(4 ; 0)              & F(3 ; -2) \\
+					G(-5 ; -3)            & H(-2 ; 3)
+				\end{tabular}}
 	\end{minipage} \hspace{1em}
 	\begin{minipage}{0.45\textwidth}
 		\begin{tikzpicture}[scale=0.7]
@@ -159,6 +159,30 @@
 \begin{question}[(7 points)]\
 
 	Trace un repère dans l'espace ci-dessous.
+
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[red,ultra thin] (-5,-5) grid (5,5);
+			\draw[red,ultra thick,\myarrow] (-5.5,0) -- (5.5,0);
+			\draw[red,ultra thick,\myarrow] (0,-5.5) -- (0,5.5);
+
+			\coordinate (A) at (1,3);
+			\coordinate (B) at (-4,-2);
+			\coordinate (C) at (-1,3);
+			\coordinate (D) at (4,2);
+			\coordinate (E) at (3,-1);
+
+			\draw[red] (-5.5,-2.75) -- (5.5,2.75);
+			\draw[red,dashed] (A) -- (E);
+			\draw[red,dashed] (A) -- (C);
+
+			\foreach \p in {A,B,C,D,E} {
+					\node[red] at (\p) {×};
+					\node[red,above right] at (\p) {\p};
+				}
+		\end{tikzpicture}
+	\end{center}
+
 	\begin{enumerate}[1)]
 		\item Place le point A de coordonnées (1 ; 3).
 		\item Place le point B de coordonnées (-4 ; -2).
@@ -168,28 +192,5 @@
 		\item Place le point E symétrique de A par rapport à \textbf{la droite (BD)}.  Quelles sont ses coordonnées ? {\color{red} (3 ; -1)}
 	\end{enumerate}
 \end{question}
-
-\begin{center}
-	\begin{tikzpicture}
-		\draw[red,ultra thin] (-5,-5) grid (5,5);
-		\draw[red,very thick,\myarrow] (-5,0) -- (5,0);
-		\draw[red,very thick,\myarrow] (0,-5) -- (0,5);
-
-		\coordinate (A) at (1,3);
-		\coordinate (B) at (-4,-2);
-		\coordinate (C) at (-1,3);
-		\coordinate (D) at (4,2);
-		\coordinate (E) at (3,-1);
-
-		\draw[red] (-5.5,-2.75) -- (5.5,2.75);
-		\draw[red,dashed] (A) -- (E);
-		\draw[red,dashed] (A) -- (C);
-
-		\foreach \p in {A,B,C,D,E} {
-				\node[red] at (\p) {×};
-				\node[red,above right] at (\p) {\p};
-			}
-	\end{tikzpicture}
-\end{center}
 
 \end{document}

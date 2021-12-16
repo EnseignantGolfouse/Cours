@@ -75,17 +75,21 @@
 	\end{itemize}
 
 	\begin{tikzpicture}
+		\coordinate (d1start) at (-2,1);
+		\coordinate (d1end) at (4,2);
 		\coordinate (d2start) at (-2,-1);
-
-		\draw[name path=d1] (-2,1) node[above] (d1start) {$(d₁)$} -- (4,2) coordinate (d1end);
-		\draw[name path=d2] (d2start) node [above] {$(d₂)$} -- (4,-2) coordinate (d2end);
-		\draw[name path=s] (3.5,2.5) node[left] {$(s)$} -- (0,-2);
-
-		\path[name intersections={of= d1 and s,by=A}];
-		\path[name intersections={of= d2 and s,by=B}];
+		\coordinate (d2end) at (4,-2);
+		\coordinate (sstart) at (3,3.166);
+		\coordinate (send) at (-1,-2.833);
+		\coordinate (A) at (2,10 / 6);
+		\coordinate (B) at (0,-8 / 6);
 
 		\draw pic[draw,fill=orange!30,angle radius=0.5cm] {angle=B--A--d1end};
 		\draw pic[draw,fill=violet!30,angle radius=0.5cm] {angle=A--B--d2start};
+
+		\draw (d1start) node[above] {$(d₁)$} -- (d1end);
+		\draw (d2start) node[above] {$(d₂)$} -- (d2end);
+		\draw (sstart) node[left] {$(s)$} -- (send);
 	\end{tikzpicture}
 \end{cours}
 
