@@ -1,0 +1,88 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{préambule}
+\usetikzlibrary{angles,arrows,arrows.meta,calc,intersections,quotes}
+
+% Usage : create a point
+% (parallel cs:from=P,to=A--B,on=C--D)
+% The projection of P onto A--B parallel to C--D.
+\makeatletter
+\tikzset{/tikz/parallel cs/.cd,
+    to line initial coordinate/.store in=\tikz@parallelcs@toA,
+    to line final coordinate/.store in=\tikz@parallelcs@toB,
+    on line initial coordinate/.store in=\tikz@parallelcs@onA,
+    on line final coordinate/.store in=\tikz@parallelcs@onB,
+    from coordinate/.store in=\tikz@parallelcs@from,
+    to/.style args={#1--#2}{
+        to line initial coordinate=#1,
+        to line final coordinate=#2,
+    },
+    on/.style args={#1--#2}{
+        on line initial coordinate=#1,
+        on line final coordinate=#2,
+    },
+    from/.style={
+        from coordinate=#1
+    }
+}
+\tikzdeclarecoordinatesystem{parallel}{
+    \tikzset{/tikz/parallel cs/.cd,#1}
+    \tikz@scan@one@point\pgfutil@firstofone%
+    (intersection of \tikz@parallelcs@from --$(\tikz@parallelcs@toA)!(\tikz@parallelcs@from)!90:(\tikz@parallelcs@toB)$ and \tikz@parallelcs@onA--\tikz@parallelcs@onB)%
+    \relax
+}
+\makeatother
+
+
+\makeatletter
+\renewcommand{\maketitle}{%
+{\scriptsize colle dans ton cahier d'exercices}
+	\begin{center}
+		\LARGE
+		\myuline{\@title}
+		\vspace{0.5em}
+	\end{center}
+}
+\makeatother
+
+\title{Activité : périmètre de la terre}
+\date{}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\begin{tikzpicture}
+	\coordinate (Centre de la Terre) at (0,0);
+	\coordinate (Soleil1) at (10,3);
+	\coordinate (Soleil2) at (10,6);
+	\node[right] at (10,4) {Soleil};
+
+	\draw[name path=Terre] (Centre de la Terre) circle(4cm);
+	\draw[name path=Rayon1] (Soleil1) -- (Centre de la Terre);
+	\path[name intersections={of= Terre and Rayon1,by=Syène}];
+
+	\coordinate (Centre de la Terre décalé) at ($(Centre de la Terre) + (Soleil2) - (Soleil1)$);
+	\path[name path=Rayon2] (Soleil2) -- (Centre de la Terre décalé);
+
+	\path[name intersections={of= Terre and Rayon2,by=H}];
+	\draw (Soleil2) -- (H);
+	
+	\coordinate[rotate around={24:(Centre de la Terre)}] (RotateSoleil1) at (Soleil1);
+	\path[name path=HauteurAlexandrie] (Centre de la Terre) -- (RotateSoleil1);
+	\path[name intersections={of= HauteurAlexandrie and Rayon2,by=Obélisque}];
+	\path[name intersections={of= HauteurAlexandrie and Terre,by=Alexandrie}];
+
+	\draw (Centre de la Terre) -- (Alexandrie);
+	\draw[ultra thick] (Alexandrie) -- (Obélisque);
+
+	\draw pic[draw,fill=red!60,angle radius=1cm,"7.12" shift={(-11mm,-5mm)}] {angle=H--Obélisque--Alexandrie};
+
+	\foreach \p/\dir in {Centre de la Terre/below,Syène/below right,H/above,Alexandrie/right,Obélisque/above} {
+			\node at (\p) {∙};
+			\node[\dir] at (\p) {\p};
+		}
+\end{tikzpicture}
+
+\end{document}
