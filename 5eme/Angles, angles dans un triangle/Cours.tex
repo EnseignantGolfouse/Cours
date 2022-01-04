@@ -96,42 +96,51 @@
 \begin{exemple}
 	\begin{tikzpicture}
 		\coordinate (d1-1) at (-2,3);
-		\coordinate (d1-2) at (-1,2.7);
-		\coordinate (d1-3) at (2,1.8);
+		\coordinate (A) at (-1,2.7);
+		\coordinate (B) at (2,1.8);
 		\coordinate (d1-4) at (3,1.5);
 
-		\draw[name path=d-1] (d1-1) -- (d1-4);
-		\node at (d1-2) {×};
-		\node[above] at (d1-2) {$A$};
-		\node at (d1-3) {×};
-		\node[above] at (d1-3) {$B$};
+		\path[name path=d-1] (d1-1) -- (d1-4);
+		\node at (A) {×};
+		\node[above] at (A) {$A$};
+		\node at (B) {×};
+		\node[above] at (B) {$B$};
 
 		\coordinate (d2-1) at (-2,0);
-		\coordinate (d2-2) at (-1,-0.1);
-		\coordinate (d2-3) at (2.5,-0.45);
+		\coordinate (C) at (-1,-0.1);
+		\coordinate (D) at (2.5,-0.45);
 		\coordinate (d2-4) at (3,-0.5);
 
-		\draw[name path=d-2] (d2-1) -- (d2-4);
-		\node at (d2-2) {×};
-		\node[above] at (d2-2) {$C$};
-		\node at (d2-3) {×};
-		\node[above] at (d2-3) {$D$};
+		\path[name path=d-2] (d2-1) -- (d2-4);
+		\node at (C) {×};
+		\node[above] at (C) {$C$};
+		\node at (D) {×};
+		\node[above] at (D) {$D$};
 
-		\draw[name path=s] (0,3.5) -- (2,-1);
+		\path[name path=s] (0,3.5) -- (2,-1);
 
 		\path[name intersections={of= d-1 and s,by=E}];
 		\path[name intersections={of= d-2 and s,by=F}];
+
+		\draw pic[draw,fill=red!60,angle radius=0.4cm] {angle=A--E--F};
+		\draw pic[draw,fill=red!60,angle radius=0.4cm] {angle=D--F--E};
+		\draw pic[draw,fill=blue!60,angle radius=0.5cm] {angle=F--E--B};
+		\draw pic[draw,fill=blue!60,angle radius=0.5cm] {angle=E--F--C};
 
 		\node at (E) {×};
 		\node[above right] at (E) {$E$};
 		\node at (F) {×};
 		\node[below left] at (F) {$F$};
+
+		\draw (d1-1) -- (d1-4);
+		\draw (d2-1) -- (d2-4);
+		\draw (0,3.5) -- (2,-1);
 	\end{tikzpicture}
 
 	Sur cette figure, les angles
 	\begin{itemize}
-		\item $\widehat{FEA}$ et $\widehat{EFD}$ sont alternes-internes.
-		\item $\widehat{BEF}$ et $\widehat{CFE}$ sont alternes-internes.
+		\item {\color{red} $\widehat{FEA}$} et {\color{red} $\widehat{EFD}$} sont alternes-internes.
+		\item {\color{blue} $\widehat{BEF}$} et {\color{blue} $\widehat{CFE}$} sont alternes-internes.
 	\end{itemize}
 \end{exemple}
 
@@ -201,7 +210,7 @@
 \end{cours}
 
 \begin{exemple}
-	\begin{minipage}{0.5\textwidth}
+	\begin{minipage}{0.6\textwidth}
 		\begin{tikzpicture}
 			\coordinate (A) at (0,0);
 			\coordinate (B) at (6,0);
@@ -210,6 +219,8 @@
 			\node[above left] at (A) {A};
 			\node[above] at (C) {C};
 			\node[above right] at (B) {B};
+			\draw[<->] ([yshift=-0.5cm] A) -- node[below] {6 cm} ([yshift=-0.5cm] B);
+			\draw[<->] ([xshift=-0.5cm] A) -- node[left] {3 cm} ++(0,3);
 
 			\draw pic[draw,fill=red!30,angle radius=0.5cm] {angle=C--B--A};
 			\draw pic[draw,fill=blue!30,angle radius=0.5cm] {angle=B--A--C};
@@ -220,14 +231,16 @@
 			\draw (C) -- (A);
 		\end{tikzpicture}
 	\end{minipage}
-	\begin{minipage}[t]{0.5\textwidth}
+	\begin{minipage}[t]{0.4\textwidth}
+		\vspace{-2cm}
 		Dans la figure ci-contre, on a
 		\begin{itemize}
 			\item {\color{red} $\widehat{ABC} = 45°$}
 			\item {\color{Green} $\widehat{BCA} = 90°$}
 			\item {\color{blue} $\widehat{CAB} = 45°$}
 		\end{itemize}
-		Et on retrouve bien $45 + 90 + 45 = 180°$.
+		Et on retrouve bien
+		$$ 45° + 90° + 45° = 180° $$
 	\end{minipage}
 \end{exemple}
 
