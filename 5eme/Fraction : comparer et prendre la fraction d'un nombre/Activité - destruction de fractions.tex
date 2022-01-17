@@ -1,0 +1,45 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{préambule}
+
+\makeatletter
+\renewcommand{\maketitle}{%
+{\scriptsize colle dans ton cahier d'exercices}
+	\begin{center}
+		\LARGE
+		\myuline{\@title}
+		\vspace{0.5em}
+	\end{center}
+}
+\makeatother
+
+\title{Activité : Destruction de fraction}
+\date{}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\begin{enonce}
+	On va faire un jeu qui se joue à deux :
+
+	On dispose d'une fraction, ainsi que de plusieurs nombres. Par exemple, $\cfrac{5}{6}$ et $1, 2, 3$.
+
+	Chacun son tour, un joueur peut:
+	\begin{enumerate}
+		\item Simplifier la fraction si il le souhaite, puis
+		\item Utiliser un des nombres pour l'enlever au numérateur ou au dénominateur.
+	\end{enumerate}
+
+	Voici un exemple de partie avec la fraction $\cfrac{5}{6}$ et les nombres $1, 2, 3$ :
+	\begin{itemize}
+		\item (Joueur 1) Enlève $1$ à $5$ : la fraction devient $\cfrac{4}{6}$.
+		\item (Joueur 2) Simplifie la fraction par $2$ : $\cfrac{4}{6} = \cfrac{2}{3}$
+		
+		Puis, enlève $2$ à $2$ : la fraction devient $\cfrac{0}{3}$, c'est gagné !
+	\end{itemize}
+\end{enonce}
+
+
+\end{document}
