@@ -126,6 +126,11 @@
     frametitle={Vocabulaire},
 }
 
+\mdfdefinestyle{enoncestyle}{
+    style=greenstyle,
+    frametitle={Énoncé},
+}
+
 \mdfdefinestyle{exemplestyle}{
     style=bluestyle,
     frametitle={Exemple},
@@ -181,6 +186,7 @@
 \let\enddefinition\@undefined
 \newmdenv[style=greenstyle]{definition}
 \newmdenv[style=vocabulairestyle]{vocabulaire}
+\newmdenv[style=enoncestyle]{enonce}
 \newmdenv[style=redstyle]{attention}
 \newmdenv[style=boxstyle]{mybox}
 \newmdenv[style=greyboxstyle]{greybox}
@@ -238,6 +244,17 @@
 }
 \def\vocabulaire@opt[#1]{
   \orig@vocabulaire[frametitle={Vocabulaire : #1}]
+}
+\makeatother
+
+%Titre optionel pour les blocks 'Énoncé'
+\makeatletter
+\let\orig@enonce=\enonce
+\def\enonce{
+  \@ifnextchar[{\enonce@opt}{\orig@enonce}
+}
+\def\enonce@opt[#1]{
+  \orig@enonce[frametitle={Énoncé : #1}]
 }
 \makeatother
 
