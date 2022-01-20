@@ -58,6 +58,8 @@
 
 \begin{cours}
 	Pour \textbf{simplifier} une fraction, il faut écrire une autre fraction qui lui est égale, mais dont le numérateur et le dénominateur sont plus petits.
+
+	Pour simplifier au \textit{maximum} une fraction, il faut utiliser le \textit{PGCD}, vu au chapitre 1. On dit alors que la fraction est \textbf{irréductible}.
 \end{cours}
 
 \begin{exemple}
@@ -65,6 +67,12 @@
 	\begin{itemize}
 		\item 36 et 15 sont divisible par 3.
 		\item Donc on a $\dfrac{36}{15} = \dfrac{36 ÷ 3}{15 ÷ 3} = \dfrac{12}{5}$
+	\end{itemize}
+
+	Pour simplifier $\dfrac{84}{70}$ :
+	\begin{itemize}
+		\item On a $84 = 2 × 2 × 3 × 7$ et $70 = 2 × 5 × 7$. Donc PGCD(84, 70) = 2 × 7 = 14.
+		\item Donc on a $\dfrac{84}{70} = \dfrac{84 ÷ 14}{70 ÷ 14} = \dfrac{6}{5}$.
 	\end{itemize}
 \end{exemple}
 
@@ -139,22 +147,8 @@
 
 \section*{Avancé}
 
-\begin{methode}[Simplifier une fraction]
-	Il est possible de simplifier au maximum une fraction, en divisant le numérateur et le dénominateur par leur \textbf{PGCD} (vu au chapitre 1 : multiples, diviseurs, nombres premiers).
-\end{methode}
-
-\begin{exemple}
-	Si on veut simplifier $\dfrac{18}{42}$ :
-	\begin{itemize}
-		\item 18 = 2 × 3 × 3, et 42 = 2 × 3 × 7, donc
-
-		      PGCD(18, 42) = 2 × 3 = 6.
-		\item Donc on a $\dfrac{18}{42} = \dfrac{18 ÷ 6}{42 ÷ 6} = \dfrac{3}{7}$.
-	\end{itemize}
-\end{exemple}
-
 \begin{methode}[Comparer des fractions]
-	Pour comparer deux fractions $\dfrac{a}{b}$ et $\dfrac{c}{d}$, on mettre le dénominateur de ces fractions au \textbf{PPCM} de $c$ et $d$.
+	Pour comparer deux fractions $\dfrac{a}{b}$ et $\dfrac{c}{d}$, on peut mettre le dénominateur de ces fractions au \textbf{PPCM} de $c$ et $d$.
 \end{methode}
 
 \begin{exemple}
