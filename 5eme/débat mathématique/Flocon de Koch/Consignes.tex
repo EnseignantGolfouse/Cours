@@ -1,8 +1,11 @@
-\documentclass[a4paper,10pt]{beamer}
+\documentclass[a4paper,11pt,landscape,twocolumn]{article}
 
 \usepackage{préambule}
 \usetikzlibrary{lindenmayersystems}
 \usepackage{tcolorbox}
+\usepackage{clipboard}
+
+\setlength{\columnsep}{2cm}
 
 \tikzset{
   Koch curve/.style = {
@@ -19,7 +22,8 @@
 \makeatletter
 \renewcommand{\maketitle}{%
 	\begin{center}
-		\LARGE\@title
+		\LARGE
+		\@title
 		\vspace{1em}
 	\end{center}
 }
@@ -31,19 +35,18 @@
 
 \begin{document}
 
-\begin{frame}
-	\begin{center}
-		{\LARGE Flocon de Koch}
+\Copy{Consigne}{
+	\maketitle
 
-		\vspace{1cm}
+	\begin{center}
 
 		\begin{tikzpicture}
 			\draw[Koch curve={order=2,step=180pt/3^(2)}] l-system;
 		\end{tikzpicture}
 	\end{center}
-\end{frame}
 
-\begin{frame}
+	\vspace{2em}
+
 	\hspace{-2em} 1. Premier dessin
 	\begin{tcolorbox}
 		\begin{itemize}
@@ -67,7 +70,11 @@
 		\item[$∙$] Quelle est la longueur de la 103\textsuperscript{ème} figure ?
 		\item[$∙$] Quelle est la longueur de la n\textsuperscript{ème} figure ?
 	\end{itemize}
-\end{frame}
+}
+
+\newpage
+
+\Paste{Consigne}
 
 
 \end{document}
