@@ -284,3 +284,16 @@
 \tikz[baseline=(char.base)]{%
 \node[shape=rectangle,draw,fill=#1,inner sep=2pt] (char) {#2};}%
 }
+
+\newcommand{\TitreDActivite}[1]{%
+\makeatletter
+\renewcommand{\maketitle}{%
+{\scriptsize colle dans ton cahier d'exercices}
+	\begin{center}
+		\LARGE
+		\myuline{#1}
+		\vspace{1em}
+	\end{center}
+}
+\makeatother
+}
