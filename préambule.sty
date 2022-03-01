@@ -41,7 +41,11 @@
 \usepackage{caption}            % Custom image captions
 \usepackage{floatrow}           % ??? plusieurs images côte à côte
 \usepackage[thinlines]{easytable} % Table plus faciles à utiliser (environnement TAB)
+\@ifclassloaded{article}
+{
 \usepackage[shortlabels]{enumitem}           % Pour facilement modifier les listes.
+}
+{}
 \usepackage{tabularx} % meileurs tableaux
 \usepackage{luacode} % \begin{luacode} ... \end{luacode}
 \usepackage{wrapfig} % Texte autour d'images
@@ -51,11 +55,13 @@
 \setlength{\parindent}{0pt} % Pas d'indentation implicite des paragraphes.
 
 % Symboles des listes
+\@ifclassloaded{article}
+{
 \setlist[itemize,1]{label=•}
 \setlist[itemize,2]{label=○}
 \setlist[itemize,3]{label=■}
 \setlist[itemize,4]{label=□}
-
+}{}
 
 % Définition des théorèmes, remarques...
 
