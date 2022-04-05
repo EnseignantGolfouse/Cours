@@ -1,10 +1,11 @@
 \documentclass[a4paper,12pt,landscape,twocolumn]{article}
 
 \usepackage{préambule}
-\usepackage{listings}
 \usepackage{clipboard}
 
-\setmathfont{Latin Modern Math}
+\setmathfont{Latin Modern Math}[version=lm]
+
+\newcommand{\computermodern}[1]{{\setmainfont{Latin Modern Roman}\mathversion{lm}\large#1}}
 
 \geometry{left=1cm}
 \setlength{\columnsep}{0.8cm}
@@ -43,8 +44,8 @@
 		\setlength{\tabcolsep}{1.8em}
 		\renewcommand{\arraystretch}{1.5}
 		\begin{tabular}{ll}
-			1. {{\large $x$} + 5 × 3 - 8}   & 2. {({\large $x$} + 5) × 3 - 8} \\
-			3. {{\large $x$} + (5 × 3 - 8)} & 4. {({\large $x$} - 8) × 3 + 5}
+			1. \computermodern{$x$} + 5 × 3 − 8   & 2. (\computermodern{$x$} + 5) × 3 − 8 \\
+			3. \computermodern{$x$} + (5 × 3 − 8) & 4. (\computermodern{$x$} − 8) × 3 + 5
 		\end{tabular}
 	\end{exercice}
 }
