@@ -11,7 +11,29 @@
 	{\bfseries}% Police du titre de thm
 	{.} % Signe de ponctuation apres le titre du thm
 	{ }% Espace apres le titre du thm (\newline = linebreak)
-	{\myuline{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont{\textbf{#3}}}}}% composants du titre du thm : \thmname = nom du thm, \thmnumber = numéro du thm, \thmnote = sous-titre du thm
+	{\myuline{\thmname{#1} \thmnumber{#2}\thmnote{\normalfont{\textbf{#3}}}}}% composants du titre du thm : \thmname = nom du thm, \thmnumber = numéro du thm, \thmnote = sous-titre du thm
+
+\mdfdefinestyle{indicestyle}{
+	frametitlebackgroundcolor=gray!10,
+	frametitlerulecolor=black!30,
+	topline=false,
+	bottomline=false,
+	rightline=false,
+	leftmargin=20,
+	frametitle={\textit{Indice} :},
+	innertopmargin=\topskip,
+}
+\mdfdefinestyle{reglesstyle}{
+    frametitlebackgroundcolor=red!50,
+    frametitlerulecolor=red!30,
+    leftmargin=20,
+	roundcorner=2pt,
+	frametitle={\textbf{Règles}},
+    innertopmargin=\topskip,
+}
+
+\newmdenv[style=reglesstyle]{regles}
+\newmdenv[style=indicestyle]{indice}
 
 \theoremstyle{etape_style}
 \newtheorem{etape}{Étape}
@@ -34,7 +56,7 @@ Le but est de faire un jeu de course simple sur Scratch. On pourra bouger un vé
 	Il nous faudra :
 	\begin{itemize}
 		\item 3 \textit{arrière-plans} : Un pour la course, un si on gagne et un si on perd.
-		\item 1 \textit{véhicule} : ça peut être n'importe quoi, mais il faut qu'il rentre sur la route !
+		\item 1 \textit{véhicule}.
 	\end{itemize}
 \end{greybox}
 
@@ -44,16 +66,16 @@ Le but est de faire un jeu de course simple sur Scratch. On pourra bouger un vé
 	\includegraphics[width=0.3\textwidth]{Scratch-Course-perdu.png}
 \end{center}
 
-\begin{greybox}[frametitle={Règles}]
+\begin{regles}
 	\begin{itemize}
 		\item Le véhicule commence sur la piste, et doit franchir la ligne d'arrivée.
 		\item Le véhicule ne doit pas toucher le bords de la piste.
 		\item On contrôle le véhicule avec le clavier ou la souris.
 	\end{itemize}
-\end{greybox}
+\end{regles}
 
 \begin{etape}[: Placement initial]
-	On voudrais que le jeu démarre lorqu'on appuie sur le drapeau.
+	Le jeu démarre lorqu'on appuie sur le drapeau.
 
 	Arrange les blocks pour que le véhicule se mette à la position de départ lorqu'on appuie sur le drapeau.
 
@@ -63,9 +85,9 @@ Le but est de faire un jeu de course simple sur Scratch. On pourra bouger un vé
 \begin{etape}[: Déplacement]
 	Fait en sorte que le véhicule aille vers la droite lorsqu'on appuie sur la flèche de droite.
 
-	\begin{palebox}[frametitle={\textit{Indice} :}]
+	\begin{indice}
 		Regarde dans les catégories de blocks \textit{Évènements} ou \textit{Capteurs}.
-	\end{palebox}
+	\end{indice}
 
 	Ajoute les autres directions.
 \end{etape}
@@ -75,7 +97,7 @@ Le but est de faire un jeu de course simple sur Scratch. On pourra bouger un vé
 
 	Pour cela, tu peux utiliser les blocks \textit{Contrôle} → \squared{Si \_ alors}, et \textit{Capteurs} → \squared{Couleur \_ touchée ?}. \vspace{1em}
 
-	On doit ensuite faire en sorte que le joueur ai perdu si on touche les bords de la piste.
+	On doit ensuite faire en sorte que le joueur perde si on touche les bords de la piste.
 \end{etape}
 
 \begin{etape*}[Bonus]\

@@ -3,9 +3,7 @@
 \usepackage{préambule}
 \usepackage{clipboard}
 
-\setmathfont{Latin Modern Math}[version=lm]
-
-\newcommand{\computermodern}[1]{{\setmainfont{Latin Modern Roman}\mathversion{lm}\large#1}}
+\setmathfont[range=it]{Tex Gyre Schola Math}
 
 \geometry{left=1cm}
 \setlength{\columnsep}{0.8cm}
@@ -44,14 +42,15 @@
 		\setlength{\tabcolsep}{1.8em}
 		\renewcommand{\arraystretch}{1.5}
 		\begin{tabular}{ll}
-			1. \computermodern{$x$} + 5 × 3 − 8   & 2. (\computermodern{$x$} + 5) × 3 − 8 \\
-			3. \computermodern{$x$} + (5 × 3 − 8) & 4. (\computermodern{$x$} − 8) × 3 + 5
+			1. $x + 5 × 3 − 8$   & 2. $(x + 5) × 3 − 8$ \\
+			3. $x + (5 × 3 − 8)$ & 4. $(x − 8) × 3 + 5$
 		\end{tabular}
 	\end{exercice}
 }
 
 \newpage
 
+\setcounter{exercice}{0}
 \Paste{Contenu}
 
 \end{document}
