@@ -6,9 +6,10 @@
 
 \usepackage{fontspec}           % Pour changer la police
 \setmainfont[Ligatures=TeX]{DejaVuSans} % Police avec support pour l'UTF-8
-\usepackage[math-style=french]{unicode-math}       % Symboles unicodes en mode math
+\usepackage[math-style=french,sans-style=upright]{unicode-math}       % Symboles unicodes en mode math
 \setmathfont{TeX Gyre DejaVu Math}
-\setmathfont{TeX Gyre DejaVu Math}[version=bold,math-style=ISO,FakeBold = 3]
+\setmathfont{Latin Modern Math}[range=it/{latin},Scale=1.2] % lettres minuscule en cursif
+\setmathfont{Noto Sans Math}[range={up/{num},bfup/{num}},Script=Default] % Nombre en sans serif.
 \usepackage{sourcecodepro}    % Police à chasse fixe
 \usepackage[french]{babel}    % françisation partielle de l'output
 \DecimalMathComma
@@ -20,7 +21,6 @@
 {}
 \makeatother
 \usepackage{amsthm}             % maths
-\usepackage{bm}                 % bold maths
 \usepackage{amsmath}            % maths
 \usepackage{graphicx}           % figures
 \usepackage{titlesec}           % permet de changer l'affichage des sections et autres
