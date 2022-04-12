@@ -1,0 +1,71 @@
+\documentclass[a4paper,12pt,landscape,twocolumn]{article}
+
+\usepackage{préambule}
+\usepackage{clipboard}
+
+\setmathfont[range=it]{Tex Gyre Schola Math}
+
+\geometry{left=1cm}
+\setlength{\columnsep}{0.8cm}
+
+\TitreDEvaluation{Évaluation calcul littéral}
+\author{}
+\date{15 avril}
+
+\makeatletter
+\newcommand{\mydate}{
+\@date
+}
+\makeatother
+
+\begin{document}
+
+\Copy{Contenu}{
+	\maketitle
+
+	\begin{exercice}\
+
+		$x$ désigne un nombre quelconque. Écrire une expression littérale qui représente :
+		\begin{enumerate}[label=\alph*.]
+			\item La somme de $x$ et 3.
+			\item La différence entre 12 et le produit de $x$ et 2.
+		\end{enumerate}
+	\end{exercice}
+
+	\begin{exercice}\
+
+		Calculer la valeur de l'expression $4x + 3$ pour :
+		\begin{enumerate}[label=\alph*.]
+			\item $x = 10$  % 43
+			\item $x = 5$   % 23
+			\item $x = 2{,}5$ % 13
+		\end{enumerate}
+	\end{exercice}
+
+	\begin{exercice}\
+
+		Calculer la valeur de l'expression $5x + 6 - 3x$ pour :
+		\begin{enumerate}[label=\alph*.]
+			\item $x = 6$  % 18
+			\item $x = 12$ % 30
+			\item $x = 3$  % 12
+		\end{enumerate}
+	\end{exercice}
+
+	\begin{exercice}\
+
+		Les expressions suivantes sont-elles des égalités ?
+		\begin{enumerate}[label=\alph*.]
+			\item $3x + 2 = 8$
+			\item $x + 6 - 1$
+			\item $8x × 2 = 16$
+		\end{enumerate}
+	\end{exercice}
+}
+
+\newpage
+
+\setcounter{exercice}{0}
+\Paste{Contenu}
+
+\end{document}

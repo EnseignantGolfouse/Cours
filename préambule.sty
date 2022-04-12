@@ -312,3 +312,16 @@
 }
 \makeatother
 }
+
+\makeatletter
+\newcommand{\TitreDEvaluation}[1]{%
+\renewcommand{\maketitle}{%
+	Prénom: ........................ \hfill \@date
+	\begin{center}
+		\LARGE
+		#1
+	\end{center}
+	\vspace{1em}
+}
+}
+\makeatother
