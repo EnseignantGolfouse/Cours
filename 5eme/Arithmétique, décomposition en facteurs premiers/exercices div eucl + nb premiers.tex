@@ -1,117 +1,12 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper,12pt]{article}
 
-\usepackage[utf8]{inputenc}     % support des caractères spéciaux (é, þ, ...)
-\usepackage{fontspec}           % Pour changer la police
-\defaultfontfeatures{Scale=1.4} % text scale
-\setmainfont[Ligatures=TeX]{FreeSerif} % Police avec support pour l'UTF-8
-\usepackage{unicode-math}       % Symboles unicodes en mode math
-\usepackage[francais]{babel}    % françisation partielle de l'output
-\usepackage{natbib}             % bibliographie
-\usepackage{amsthm}             % maths
-\usepackage{amsmath}            % maths
-\usepackage{mathtools}          % maths
-\usepackage{graphicx}           % figures
-\usepackage{titlesec}           % permet de changer l'affichage des sections et autres
-\usepackage{color}              % couleurs rgb
-\usepackage[dvipsnames]{xcolor} % plus de couleurs
-\usepackage[tikz]{mdframed}     % boites fancy autour des théorèmes et autres
-\usepackage{contour} % Pour souligner
-\usepackage{ulem}    % Pour souligner
-\usetikzlibrary{shadows}        % effet d'ombre sur les boites ('shadow = true')
-\usepackage{nopageno} % no page numbers
-
-% renommage de la table des matières
-\addto\captionsfrench{\renewcommand*\contentsname{Nom de la table des matières}}
-\setcounter{tocdepth}{1}
-
-
-% Définition des théorèmes, remarques...
-
-
-\definecolor{theoremcolor}{RGB}{220, 20, 20}
-\definecolor{definitioncolor}{RGB}{0, 170, 40}
-\definecolor{remarkcolor}{RGB}{0, 0, 100}
-
-\mdfdefinestyle{coursstyle}{
-    linecolor=gray!60,
-    linewidth=1pt,
-    frametitlefontcolor=theoremcolor,
-    frametitlebackgroundcolor=gray!20,
-    frametitlerule=true,
-    frametitlerulewidth=1pt,
-    frametitlerulecolor=theoremcolor!50,
-    frametitle={Cours},
-    roundcorner=5pt,
-    shadow=true,
-    innertopmargin=\topskip,
-}
-
-\mdfdefinestyle{exemplestyle}{
-    linecolor=black!70,
-    linewidth=1pt,
-    backgroundcolor=gray!0,
-    frametitlefontcolor=remarkcolor,
-    frametitlebackgroundcolor=gray!10,
-    frametitlerulecolor=black!30,
-    frametitle={Exemple},
-    topline=false,
-    bottomline=false,
-    rightline=false,
-    leftmargin=12,
-    innertopmargin=\topskip,
-}
-
-\newmdenv[style=exemplestyle]{exemple}
-\newmdenv[style=coursstyle]{cours}
-
-% Titre optionel pour les blocks 'cours'
-\makeatletter
-\let\orig@cours=\cours
-\def\cours{
-  \@ifnextchar[{\cours@opt}{\orig@cours}
-}
-\def\cours@opt[#1]{
-  \orig@cours[frametitle={Cours : #1}]
-}
-\makeatother
-
-% environnement exercices
-\newtheoremstyle{exostyle}
-{\topsep}% espace avant
-{1cm}% espace apres
-{}% Police utilisee par le style de thm
-{}% Indentation (vide = aucune, \parindent = indentation paragraphe)
-{\bfseries}% Police du titre de thm
-{.}% Signe de ponctuation apres le titre du thm
-{ }% Espace apres le titre du thm (\newline = linebreak)
-{\thmname{#1}\thmnumber{ #2}\thmnote{. \normalfont{\textit{#3}}}}% composants du titre du thm : \thmname = nom du thm, \thmnumber = numéro du thm, \thmnote = sous-titre du thm
-
-\theoremstyle{exostyle}
-\newtheorem{exercice}{Exercice} 
-
-\newcommand{\somme}[2]{\overset{#2}{\underset{#1}{\sum}}}
-\newcommand{\produit}[2]{\overset{#2}{\underset{#1}{\prod}}}
-\newcommand{\sommedirecte}[2]{\overset{#2}{\underset{#1}{\oplus}}}
-\renewcommand*{\proofname}{Preuve}
-
-\renewcommand{\ULdepth}{1.8pt}
-\contourlength{0.8pt}
-
-% Commande de soulignage
-\newcommand{\myuline}[1]{%
-  \uline{\phantom{#1}}%
-  \llap{\contour{white}{#1}}%
-}
-
-% Pour entourer un nombre
-\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
-            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
-
+\usepackage{préambule}
 
 %%%%%%%%%%%%%%%%%%
 
 \title{Exercices : Division euclidiennes, nombres premiers}
 \date{10 septembre 2021}
+\author{}
 
 %%%%%%%%%%%%%%%%%%
 

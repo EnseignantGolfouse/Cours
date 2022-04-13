@@ -64,6 +64,17 @@
 \setlist[itemize,4]{label=□}
 }{}
 
+% Si on est en "landscape", changer l'espacement.
+\makeatletter
+\@ifclassloaded{article}{
+\ifthenelse{
+	\lengthtest{\paperwidth<297.5mm}\AND\lengthtest{\paperwidth>296.5mm}
+	\AND\lengthtest{\paperheight<210.5mm}\AND\lengthtest{\paperheight>209.5mm}}{
+	\geometry{left=1cm}
+	\setlength{\columnsep}{0.8cm}
+}{}
+}{}
+
 % Définition des théorèmes, remarques...
 
 \definecolor{myred}{RGB}{220, 20, 20}
