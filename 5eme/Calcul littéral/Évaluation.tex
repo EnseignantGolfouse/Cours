@@ -13,12 +13,6 @@
 \author{}
 \date{15 avril}
 
-\makeatletter
-\newcommand{\mydate}{
-\@date
-}
-\makeatother
-
 \begin{document}
 
 \renewcommand{\arraystretch}{1.4}
@@ -29,7 +23,7 @@
 	\begin{exercice}\
 
 		\begin{center}
-			\begin{tikzpicture}
+			\begin{tikzpicture}[scale=0.95]
 				\coordinate (A) at (0,0);
 				\coordinate (B) at (3,0);
 				\coordinate (C) at (6,0);
@@ -41,11 +35,11 @@
 				\draw[|-|] (D) -- node {//} (E);
 
 				\foreach \p in {A,B,C,D,E} {
-						\node[below] at ($(\p) - (0,0.2)$) {\p};
+						\node[below] at ($(\p) - (0,0.15)$) {\p};
 					}
 
-				\draw[\myarrow] ($(A) - (0,1)$) -- node[below] {$x$} ($(B) - (0,1)$);
-				\draw[\myarrow] ($(C) - (0,1)$) -- node[below] {$3cm$} ($(D) - (0,1)$);
+				\draw[\myarrow] ($(A) - (0,0.84)$) -- node[below] {$x$} ($(B) - (0,0.84)$);
+				\draw[\myarrow] ($(C) - (0,0.84)$) -- node[below] {$3cm$} ($(D) - (0,0.84)$);
 			\end{tikzpicture}
 		\end{center}
 
@@ -56,7 +50,7 @@
 		\vspace{1em}
 
 		\begin{center}
-			\begin{tikzpicture}
+			\begin{tikzpicture}[scale=0.95]
 				\coordinate (A) at (0,0);
 				\coordinate (B) at (2.5,0);
 				\coordinate (E) at (5,0);
@@ -71,7 +65,7 @@
 						\node[below] at ($(\p) - (0,0.2)$) {\p};
 					}
 
-				\draw[\myarrow] ($(A) - (0,1)$) -- node[below] {$x$} ($(C) - (0,1)$);
+				\draw[\myarrow] ($(A) - (0,0.82)$) -- node[below] {$x$} ($(C) - (0,0.82)$);
 			\end{tikzpicture}
 		\end{center}
 
@@ -82,31 +76,32 @@
 
 	\begin{exercice}\
 
-		Calculer la valeur de l'expression $4x + 3$ pour : \vspace{0.3em}
+		Calculer la valeur de l'expression $4x + 3$ pour : \vspace{0.5em}
 
-		\begin{tabular}{lll}
-			a. & $x = 10$ & . . . . . . . . . . . . \\ % 43
-			b. & $x = 5$  & . . . . . . . . . . . . \\ % 23
+		\begin{tabular}{llm{4cm}}
+			a. & $x = 10$ & \dotfill \\ % 43
+			b. & $x = 5$  & \dotfill \\ % 23
 		\end{tabular}
 	\end{exercice}
 
 	\begin{exercice}\
 
-		Calculer la valeur de l'expression $5x + 6 - 3y$ pour : \vspace{0.3em}
+		Calculer la valeur de l'expression $5x + 6 - 3y$ pour : \vspace{0.5em}
 
-		\begin{tabular}{lll}
-			a. & $x = 6$ et $y = 5$   & . . . . . . . . . . . . \\ % 21
-			b. & $x = 12$ et $y = 10$ & . . . . . . . . . . . . \\ % 36
+		\begin{tabular}{llm{4cm}}
+			a. & $x = 6$ et $y = 5$   & \dotfill \\ % 21
+			b. & $x = 12$ et $y = 10$ & \dotfill \\ % 36
 		\end{tabular}
 	\end{exercice}
 
 	\begin{exercice}\
 
-		Les expressions suivantes sont-elles des égalités ?
+		Simplifier les expressions suivantes : \vspace{0.5em}
 		\begin{enumerate}[label=\alph*.]
-			\item $3x + 2 = 8$
-			\item $x + 6 - 1$
-			\item $8x × 2 = 16$
+			\setlength\itemsep{5pt}
+			\item $3 × x + 2 = $ \dotfill
+			\item $x + x + 1{,}5 + 2{,}5 = $ \dotfill
+			\item $4 × x + 1 × y  - 2 × x = $ \dotfill
 		\end{enumerate}
 	\end{exercice}
 }

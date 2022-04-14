@@ -215,6 +215,12 @@ def clean_all(path: str, artifacts_dir: str, output_dir: str):
             raise e
 
 
+def adjust_lua_path():
+    lua_path: str = os.environ["LUA_PATH"]
+    new_path: str = os.path.abspath(".") + "/scripts_lua/?.lua"
+    os.environ["LUA_PATH"] = new_path + ";" + lua_path
+
+
 def print_help(exit_code: int):
     print("helper to build tex files.")
     print("")
@@ -231,6 +237,7 @@ def print_help(exit_code: int):
 
 
 def main(args: list):
+    adjust_lua_path()
     path = "."
     try:
         opts, args = getopt.getopt(

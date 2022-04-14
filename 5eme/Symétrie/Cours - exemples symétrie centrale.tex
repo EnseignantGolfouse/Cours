@@ -8,7 +8,7 @@
 \author{}
 
 \begin{luacode}
-dofile "symetrie.lua"
+require "symetrie"
 function draw_dashed(p1, p2)
 	tex.print("\\draw[dashed] (", p1.x, ",", p1.y, ") -- (", p2.x, ",", p2.y,");")
 end

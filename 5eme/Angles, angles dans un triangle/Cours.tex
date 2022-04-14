@@ -1,25 +1,15 @@
-\documentclass[a4paper,11pt]{article}
+% !TEX root = ./Cours.tex
+\documentclass[../€Cours-complet/Cours-complet]{subfiles}
 
-\usepackage{préambule}
-\usetikzlibrary{angles,quotes,intersections}
-
-\mdfdefinestyle{rappelstyle}{
-    style=greyboxstyle,
-    frametitle={Rappel},
-}
-\newmdenv[style=rappelstyle]{rappel}
-
-\title{Chapitre 6 : Angles, angles dans un triangles}
-\date{}
-\author{}
+\titleorchapter{Angles, angles dans un triangles}{6}
 
 \begin{document}
 
-\maketitle
+\maketitleorchapter
 
 \section*{Rappel sur les angles}
 
-\begin{rappel}
+\begin{greybox}[frametitle={Rappel}]
 	Si on a trois points $A$, $B$ et $C$, l'angle que forme les droites $(AB)$ et $(BC)$ est appelé $\widehat{ABC}$.
 
 	\begin{tikzpicture}
@@ -38,9 +28,9 @@
 		\node[below] at (B) {$B$};
 		\node[above left] at (C) {$C$};
 	\end{tikzpicture}
-\end{rappel}
+\end{greybox}
 
-\begin{rappel}
+\begin{greybox}[frametitle={Rappel}]
 	Si on a deux droite $(d₁)$ et $(d₂)$ qui s'intersectent en $D$, l'angle que forment ces deux droite est appelé $\widehat{d₁Dd₂}$.
 
 	\begin{tikzpicture}
@@ -55,11 +45,11 @@
 		\node at (B) {×};
 		\node[below] at (B) {$D$};
 	\end{tikzpicture}
-\end{rappel}
+\end{greybox}
 
-\begin{rappel}
+\begin{greybox}[frametitle={Rappel}]
 	Le nombre qui indique l'écartement d'un angle est appelé sa \textbf{mesure}.
-\end{rappel}
+\end{greybox}
 
 \section{Angles alternes-internes}
 

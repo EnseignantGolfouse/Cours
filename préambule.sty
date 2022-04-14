@@ -14,7 +14,8 @@
 \usepackage[french]{babel}    % françisation partielle de l'output
 \DecimalMathComma
 \makeatletter
-\@ifclassloaded{article}
+\ifboolexpr{test    {\@ifclassloaded{article}}
+            or test {\@ifclassloaded{book}}}
 {
 \usepackage[a4paper,top=1cm,bottom=1cm,left=2cm,right=2cm]{geometry}  % Mise en page, marges
 }
@@ -26,7 +27,8 @@
 \usepackage{titlesec}           % permet de changer l'affichage des sections et autres
 \usepackage{color}              % couleurs rgb
 \makeatletter
-\@ifclassloaded{article}
+\ifboolexpr{test    {\@ifclassloaded{article}}
+            or test {\@ifclassloaded{book}}}
 {
 \usepackage[dvipsnames,table]{xcolor} % plus de couleurs
 }
@@ -42,7 +44,8 @@
 \usepackage{caption}            % Custom image captions
 \usepackage{floatrow}           % ??? plusieurs images côte à côte
 \usepackage[thinlines]{easytable} % Table plus faciles à utiliser (environnement TAB)
-\@ifclassloaded{article}
+\ifboolexpr{test    {\@ifclassloaded{article}}
+            or test {\@ifclassloaded{book}}}
 {
 \usepackage[shortlabels]{enumitem}           % Pour facilement modifier les listes.
 }
@@ -56,7 +59,8 @@
 \setlength{\parindent}{0pt} % Pas d'indentation implicite des paragraphes.
 
 % Symboles des listes
-\@ifclassloaded{article}
+\ifboolexpr{test    {\@ifclassloaded{article}}
+            or test {\@ifclassloaded{book}}}
 {
 \setlist[itemize,1]{label=•}
 \setlist[itemize,2]{label=○}
@@ -74,6 +78,15 @@
 	\setlength{\columnsep}{0.8cm}
 }{}
 }{}
+
+% 'require' ne fonctionne pas bien...
+
+\begin{luacode}
+	local myrequireclone = require
+	function require(module)
+		return myrequireclone(package.searchpath(module, package.path))
+	end
+\end{luacode}
 
 % Définition des théorèmes, remarques...
 
