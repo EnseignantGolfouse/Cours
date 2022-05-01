@@ -337,13 +337,14 @@
 \makeatother
 }
 
+% L'argument optionel remplit le champ "prénom".
 \makeatletter
-\newcommand{\TitreDEvaluation}[1]{%
+\newcommand{\TitreDEvaluation}[2][]{%
 \renewcommand{\maketitle}{%
-	Prénom: ........................ \hfill \@date
+	Prénom: \ifthenelse{\equal{#1}{}}{........................}{{#1}} \hfill \@date
 	\begin{center}
 		\LARGE
-		#1
+		#2
 	\end{center}
 	\vspace{1em}
 }

@@ -25,10 +25,11 @@
 		\author{}
 	}
 }
-\newcommand{\maketitleorchapter}{
+\let\OldMaketitle\maketitle
+\renewcommand{\maketitle}{
 	\ifthenelse{\inmaindocument=1}{
 		\chapter{\MyCurrentChapterName}
-	}{\maketitle}
+	}{\OldMaketitle}
 }
 \makeatother
 
