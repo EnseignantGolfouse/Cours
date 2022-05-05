@@ -18,18 +18,19 @@
 \makeatletter
 \newcommand{\titleorchapter}[2]{
 	\ifthenelse{\inmaindocument=1}{
-		\providecommand{\MyCurrentChapterName}{#1}
+		\newcommand{\MyCurrentChapterName}{#1}
 	}{
 		\title{Chapitre #2 : #1}
 		\date{}
 		\author{}
 	}
 }
-\let\OldMaketitle\maketitle
-\renewcommand{\maketitle}{
+\newcounter{maketitleAlready}
+\setcounter{maketitleAlready}{0}
+\newcommand{\maketitleCours}{
 	\ifthenelse{\inmaindocument=1}{
 		\chapter{\MyCurrentChapterName}
-	}{\OldMaketitle}
+	}{\maketitle}
 }
 \makeatother
 
@@ -72,5 +73,8 @@
 \newpage
 
 \subfile{../Calcul littéral/Cours}
+\newpage
+
+\subfile{../Moyenne/Cours}
 
 \end{document}
