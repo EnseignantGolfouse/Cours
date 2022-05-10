@@ -26,13 +26,16 @@
 \usepackage{graphicx}           % figures
 \usepackage{titlesec}           % permet de changer l'affichage des sections et autres
 \usepackage{color}              % couleurs rgb
+\usepackage{censor} % soulignage
 \makeatletter
 \ifboolexpr{test    {\@ifclassloaded{article}}
             or test {\@ifclassloaded{book}}}
 {
 \usepackage[dvipsnames,table]{xcolor} % plus de couleurs
 }
-{}
+{\usepackage{xcolor}}
+\usepackage{pgfplots}
+\usepackage{pgf-pie}
 \usepackage[tikz]{mdframed}     % boites fancy autour des théorèmes et autres
 \usepackage{contour}            % Pour souligner
 \usepackage{ulem}               % Pour souligner
@@ -63,7 +66,7 @@
             or test {\@ifclassloaded{book}}}
 {
 \setlist[itemize,1]{label=•}
-\setlist[itemize,2]{label=○}
+\setlist[itemize,2]{label=◦}
 \setlist[itemize,3]{label=■}
 \setlist[itemize,4]{label=□}
 }{}
@@ -312,6 +315,36 @@
 	{#1\uline{\phantom{#2}}}%
 	\llap{\contour{white}{#2}}%
 }
+
+% Permet de souligner !
+% \censorruledepth=-.25ex
+% \censorruleheight=.1ex
+% \newlength\maxkern
+% \setlength{\maxkern}{.14ex}
+% \newlength\nextcharwidth
+% \makeatletter
+% \renewcommand\@cenword[1]{%
+%   \setlength{\nextcharwidth}{\widthof{#1}}%
+%   \censorrule{\nextcharwidth}%
+%   \kern -\nextcharwidth%
+%   \color{white}%
+%   \kern -.5\maxkern #1\kern .5\maxkern%
+%   \kern -\nextcharwidth%
+%   \kern -\maxkern #1\kern \maxkern%
+%   \kern -\nextcharwidth%
+%   \kern .5\maxkern #1\kern -.5\maxkern%
+%   \kern -\nextcharwidth%
+%   \kern \maxkern #1\kern -\maxkern%
+%   \kern -\nextcharwidth%
+%   \color{black}%
+%   #1}
+% \makeatother
+
+% % Commande de soulignage
+% % On peut optionellement spécifier la couleur
+% \newcommand{\myuline}[2][]{%
+% 	{#1\xblackout{#2}}%
+% }
 
 % Pour entourer un nombre
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{

@@ -10,6 +10,8 @@
 
 \maketitleCours
 
+\section{Effectifs, fréquence, moyenne}
+
 \begin{cours}[Effectif]
 	Dans une série de données :
 	\begin{itemize}
@@ -52,5 +54,121 @@
 		fréquence d'une donnée = $\dfrac{\text{effectif de la donnée}}{\text{effectif total}}$
 	\end{center}
 \end{cours}
+
+\section{Diagrammes et graphiques}
+
+\subsection{Diagramme en bâtons}
+
+Dans un \textbf{diagramme en bâtons}, la hauteur d'un bâton est proportionnelle à l'effectif de la donnée associée.
+
+\begin{exemple}
+	Voici les notes d'un devoir de mathématiques:
+
+	\begin{center}
+		\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
+			\hline
+			Note     & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10
+			\\ \hline
+			Effectif & 2 & 3 & 1 & 4 & 5 & 3 & 3 & 6 & 2
+			\\ \hline
+		\end{tabular}
+	\end{center}
+
+	À chaque note est associé un bâton : sa hauteur est le nombre d'élèves ayant obtenu cette note.
+
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+					width = 0.7\textwidth,
+					ybar,
+					enlargelimits=0.15,
+					ylabel={Effectif},
+					xlabel={\ Note},
+					symbolic x coords={2, 3, 4, 5, 6, 7, 8, 9, 10},
+					xtick=data,
+					ymajorgrids = true,
+					scaled y ticks = false,
+					ytick=data,
+				]
+				\addplot coordinates { (2,2) (3,3) (4,1) (5,4) (6,5) (7,3) (8,3) (9,6) (10,2) };
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+\end{exemple}
+
+\subsection{Histogramme}
+
+Lorsqu'il y a trop de données différentes, on peut les regrouper en \textbf{classes}, et utiliser un \textbf{histogramme}.
+
+\begin{exemple}
+	On a mesuré la taille des élèves dans le collège. Comme presque toutes ces tailles sont différentes, on les a regroupé en \textit{classes}, d'\textbf{amplitude} 5cm :
+
+
+	\begin{center}
+		\begin{tabular}{|l|c|c|c|c|c|c|}
+			\hline
+			Taille (en cm) & 135    & 140    & 145    & 150    & 155    & 160
+			\\
+			entre          & et 141 & et 146 & et 151 & et 156 & et 161 & et 166
+			\\ \hline
+			Effectif       & 75     & 161    & 255    & 182    & 117    & 143    % total : 913
+			\\ \hline
+		\end{tabular}
+	\end{center}
+
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+					width = 0.8\textwidth,
+					xmin=134.9, xmax=167,
+					ymin=0, ymax=280,
+					axis lines=center,
+					ylabel={Effectif},
+					xlabel={\ Taille},
+					xlabel style={below right},
+					ylabel style={above left},
+					area style,
+				]
+				\addplot+[ybar interval,mark=no] plot coordinates { (135,75) (140,161) (145,255) (150,182) (155,117) (160,143) (165,0) };
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+\end{exemple}
+
+\subsection{Diagramme circulaire}
+
+Dans un \textbf{diagramme circulaire}, la mesure de chaque angle est proportionnelle à l'effectif associé.
+
+\begin{exemple}
+	Voici la répartition des élèves d'un collège en LV2 :
+
+	\begin{center}
+		\begin{tabular}{|l|c|c|c|c|c|}
+			\hline
+			Langue       & Allemand & Italien & Espagnol & Chinois & \textbf{Total}
+			\\ \hline
+			Effectif     & 40       & 40      & 70       & 30      & 180
+			\\ \hline
+			Angle (en °) & 80       & 80      & 140      & 60      & 360
+			\\ \hline
+		\end{tabular}
+	\end{center}
+
+	\begin{center}
+		\begin{tikzpicture}
+			\pie[
+				text = inside,
+				hide number,
+				sum = auto
+			]
+			{
+				40/Allemand,
+				40/Italien,
+				70/Espagnol,
+				30/Chinois
+			}
+		\end{tikzpicture}
+	\end{center}
+\end{exemple}
 
 \end{document}
