@@ -43,7 +43,7 @@
 \end{cours}
 
 \begin{exemple}
-	Si les cinq notes du semestre d'un élève sont $11$, $12$, $10$, $16$ et $18$, sa moyenne est
+	Si les cinq notes du semestre d'un élève sont $11$, $12$, $10$, $15$ et $17$, sa moyenne est
 
 	$$ \dfrac{11 + 12 + 10 + 15 + 17}{5} = \dfrac{65}{5} = 13 $$
 \end{exemple}
@@ -57,11 +57,15 @@
 
 \section{Diagrammes et graphiques}
 
-\subsection{Diagramme en bâtons}
-
-\begin{cours}
-	Dans un \textbf{diagramme en bâtons}, la hauteur d'un bâton est proportionnelle à l'effectif de la donnée associée.
+\begin{cours}[diagrammes]
+	\begin{itemize}
+		\item Dans un \textbf{diagramme en bâtons}, la hauteur d'un bâton est proportionnelle à l'effectif de la donnée associée.
+		\item Lorsqu'il y a trop de données différentes, on peut les regrouper en \textbf{classes}, et utiliser un \textbf{histogramme}.
+		\item Dans un \textbf{diagramme circulaire}, la mesure de chaque angle est proportionnelle à l'effectif associé.
+	\end{itemize}
 \end{cours}
+
+\subsection{Diagramme en bâtons}
 
 \begin{exemple}
 	Voici les notes d'un devoir de mathématiques:
@@ -100,10 +104,6 @@
 
 \subsection{Histogramme}
 
-\begin{cours}
-	Lorsqu'il y a trop de données différentes, on peut les regrouper en \textbf{classes}, et utiliser un \textbf{histogramme}.
-\end{cours}
-
 \begin{exemple}
 	On a mesuré la taille des élèves dans le collège. Comme presque toutes ces tailles sont différentes, on les a regroupé en \textit{classes}, d'\textbf{amplitude} 5cm :
 
@@ -113,7 +113,7 @@
 			\hline
 			Taille (en cm) & 135    & 140    & 145    & 150    & 155    & 160
 			\\
-			entre          & et 141 & et 146 & et 151 & et 156 & et 161 & et 166
+			entre          & et 139 & et 144 & et 149 & et 154 & et 159 & et 164
 			\\ \hline
 			Effectif       & 75     & 161    & 255    & 182    & 117    & 143    % total : 913
 			\\ \hline
@@ -124,7 +124,7 @@
 		\begin{tikzpicture}
 			\begin{axis}[
 					width = 0.8\textwidth,
-					xmin=134.9, xmax=167,
+					xmin=133, xmax=167,
 					ymin=0, ymax=280,
 					axis lines=center,
 					ylabel={Effectif},
@@ -132,6 +132,7 @@
 					xlabel style={below right},
 					ylabel style={above left},
 					area style,
+					xtick=data
 				]
 				\addplot+[ybar interval,mark=no] plot coordinates { (135,75) (140,161) (145,255) (150,182) (155,117) (160,143) (165,0) };
 			\end{axis}
@@ -140,10 +141,6 @@
 \end{exemple}
 
 \subsection{Diagramme circulaire}
-
-\begin{cours}
-	Dans un \textbf{diagramme circulaire}, la mesure de chaque angle est proportionnelle à l'effectif associé.
-\end{cours}
 
 \begin{exemple}
 	Voici la répartition des élèves d'un collège en LV2 :
