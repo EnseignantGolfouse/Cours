@@ -27,7 +27,7 @@ def find_tex_files_in(directory: str) -> list:
     return result
 
 
-def compile_file(working_dir: str, build_dir: str, output_dir: str, file_tex: str) -> bool:
+def compile_file(inputs: (str,  str,  str,  str)) -> (bool):
     """
     Returns `None` if no error happened.
     Else, returns the error message.
@@ -36,6 +36,9 @@ def compile_file(working_dir: str, build_dir: str, output_dir: str, file_tex: st
     - `build_dir` is the absolute directory in which to place intermediary build artifacts.
     - `output_dir` is a directory, relative to `working_dir`, in which to place the resulting pdf.
     - `file_tex` is the path of the input .tex file, relative to `working_dir`.   """
+    (working_dir, build_dir, output_dir, file_tex) = inputs
+    returned_file_tex = os.path.join(working_dir, file_tex)
+    working_dir = os.path.abspath(working_dir)
     file_pdf: str = file_tex[:-4] + ".pdf"
     error = None
     try:
@@ -69,9 +72,14 @@ def compile_file(working_dir: str, build_dir: str, output_dir: str, file_tex: st
         raise e
     finally:
         if error != None:
-            return error
+            return (returned_file_tex, error)
         else:
-            return None
+            return (returned_file_tex, None)
+
+
+file_number: int = 1
+total_ok: int = 0
+total_err: int = 0
 
 
 def compile_all(path: str, artifacts_dir: str, pdf_dir: str, jobs: int):
@@ -83,6 +91,7 @@ def compile_all(path: str, artifacts_dir: str, pdf_dir: str, jobs: int):
 
     The compiling command is `latexmk -lualatex -output-directory=<artifacts_dir> -synctex=1 -interaction=nonstopmode -file-line-error`.
     """
+    global file_number, total_ok, total_err
 
     build_dir: str = os.path.abspath(artifacts_dir)
     package_dir: str = os.path.abspath(os.path.join(build_dir, os.path.pardir))
@@ -90,45 +99,40 @@ def compile_all(path: str, artifacts_dir: str, pdf_dir: str, jobs: int):
     os.environ["TEXINPUTS"] = "::" + package_dir
 
     tex_files: list = find_tex_files_in(path)
-    total_ok: int = 0
-    total_err: int = 0
     total_files: int = len(tex_files)
     failed_files: list = []
-    file_number: int = 1
+    file_number = 1
+    total_ok = 0
+    total_err = 0
 
-    # to_join: list = []
-    results: list = []
+    def executing_function(inputs):
+        global file_number, total_ok, total_err
+        (file_tex, error) = compile_file(inputs)
+        print(
+            Fore.CYAN + f"{file_number}/{total_files} " + Fore.RESET
+            + file_tex,
+            end="")
+        file_number += 1
+        if error == None:
+            total_ok += 1
+            print("  " + Fore.GREEN + "OK" + Fore.RESET)
+        else:
+            total_err += 1
+            print("  " + Fore.RED + "[ERROR]" + Fore.RESET)
+            print(error)
+            failed_files.append(file_tex)
 
     with ThreadPoolExecutor(max_workers=jobs) as executor:
+        to_map = []
         for (directory, file_tex, file_hash) in tex_files:
             file_build_dir = os.path.abspath(
                 os.path.join(build_dir, str(file_hash)))
-            results.append(
-                (
-                    executor.submit(
-                        compile_file,
-                        os.path.abspath(directory),
-                        file_build_dir,
-                        pdf_dir,
-                        file_tex
-                    ),
-                    os.path.join(directory, file_tex)
-                ))
-        for (future, file_tex) in results:
-            error = future.result()
-            print(
-                Fore.CYAN + f"{file_number}/{total_files} " + Fore.RESET
-                + file_tex,
-                end="")
-            file_number += 1
-            if error == None:
-                total_ok += 1
-                print("  " + Fore.GREEN + "OK" + Fore.RESET)
-            else:
-                total_err += 1
-                print("  " + Fore.RED + "[ERROR]" + Fore.RESET)
-                print(error)
-                failed_files.append(file_tex)
+            to_map.append((directory,
+                           file_build_dir,
+                           pdf_dir,
+                           file_tex))
+
+        executor.map(executing_function, to_map)
 
     print()
     print()
