@@ -1,10 +1,141 @@
 % !TEX root = ./Cours.tex
 \documentclass[../€Cours-complet/Cours-complet]{subfiles}
 
-\titleorchapter{Nombres relatifs (partie 2)}{13}
+\thinmuskip=0mu
+\newcommand{\myarrow}{-{Latex[length=1mm, width=1.5mm]}}
+
+\titleorchapter{Nombres relatifs (partie 2)}{11}
 
 \begin{document}
 
 \maketitleCours
+
+\section{Addition}
+
+\begin{greybox}[frametitle={Rappel}]
+	La \textbf{distance à zéro} d'un nombre relatif est le nombre \uline{positif} situé après le signe.
+\end{greybox}
+
+\begin{exemple}
+	La distance à zéro de $+5$ est $5$.
+
+	La distance à zéro de $-2$ est $2$.
+\end{exemple}
+
+\begin{cours}[Addition de nombres relatifs, cas 1]
+	Si deux nombres relatifs ont \uline{le même signe}, alors leur somme a :
+	\begin{itemize}
+		\item Le même signe que ces deux nombres.
+		\item Pour distance à zéro, la \textbf{somme} de leur distances à zéro.
+	\end{itemize}
+\end{cours}
+
+\begin{exemple}
+	\begin{itemize}
+		\item Pour calculer $5,4 + 3,5$ :
+		      \begin{itemize}
+			      \item Les deux nombres sont positifs, donc la somme est positive.
+			      \item La somme de leurs distances à zéro est $5,4 + 3,5 = 8,9$.
+		      \end{itemize}
+		      Donc la somme de $5,4$ et $3,5$ est $+8,9$ (ou juste $8,9$).
+		\item Pour calculer $-2 + (-7)$ :
+		      \begin{itemize}
+			      \item Les deux nombres sont négatifs, donc la somme est négative.
+			      \item La somme de leurs distances à zéro est $2 + 7 = 9$.
+		      \end{itemize}
+		      Donc la somme de $-2$ et $-7$ est $-9$.
+	\end{itemize}
+\end{exemple}
+
+\begin{cours}[Addition de nombres relatifs, cas 2]
+	Si deux nombres relatifs sont de signes \uline{contraires}, alors leur somme a
+	\begin{itemize}
+		\item Le signe du nombre qui a la plus grande distance à zéro.
+		\item Pour distance à zéro, la \textbf{différence} de leurs distances à zéro.
+	\end{itemize}
+\end{cours}
+
+\begin{exemple}
+	Pour calculer $-8 + 6$ :
+	\begin{itemize}
+		\item Le nombre qui à la plus grande distance à zéro est $-8$, donc le résultat est \textit{négatif}.
+		\item La différence de leurs distances à zéro est $8 - 6 = 2$.
+	\end{itemize}
+	Donc la somme de $-8$ et de $6$ est $-2$.
+\end{exemple}
+
+\section{Nombres opposés}
+
+\begin{cours}
+	Deux nombres sont \textbf{opposés} si leur somme est égale à zéro.
+
+	De manière équivalente, deux nombres opposés :
+	\begin{itemize}
+		\item Sont de signes contraires.
+		\item Ont la même distance à zéro.
+	\end{itemize}
+\end{cours}
+
+\begin{exemple}
+	\begin{itemize}
+		\item $3,2$ et $-3,2$ sont opposés.
+		\item L'opposé de $-4,6$ est $+4,6$ (ou seulement $4,6$).
+	\end{itemize}
+\end{exemple}
+
+\section{Soustraction}
+
+\begin{cours}
+	Pour \textbf{soustraire} un nombre relatif, on ajoute son opposé.
+\end{cours}
+
+\begin{exemple}
+	\begin{minipage}{0.45\textwidth}
+		\begin{align*}
+			A & = -5 - 2    \\
+			  & = -5 + (-2) \\
+			  & = -(5 + 2)  \\
+			  & = -7
+		\end{align*}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\begin{align*}
+			B & = 3 - (-8,7) \\
+			  & = 3 + 8,7    \\
+			  & = 11,7
+		\end{align*}
+	\end{minipage}
+\end{exemple}
+
+\begin{cours}
+	Sue une droite graduée, la \textbf{distance} entre deux point est égale à \uline{la différence} entre la plus grande abscisse et la plus petite.
+\end{cours}
+
+\begin{exemple}
+	\begin{center}
+		\begin{tikzpicture}[scale=1.5]
+			\coordinate (A) at (-2,0);
+			\coordinate (B) at (3.5,0);
+			\draw[\myarrow] (-2.2,0) -- (4.5,0);
+			\foreach \p in {-1,...,4} {
+					\draw (\p,0) -- (\p,-0.2) node[below] {$\p$};
+				}
+			\draw (A) -- ++(0,-0.2);
+			\foreach \p/\value in {A/-2,B/3{,}5} {
+			\node at (\p) {\color{red}×};
+			\node[above] at ($(\p) + (0,0.2)$) {\color{red}\p};
+			\node[below] at ($(\p) - (0,0.2)$) {\color{red}$\value$};
+			}
+		\end{tikzpicture}
+	\end{center}
+
+	La distance entre {\color{red}A} et {\color{red}B} est égale à :
+
+	$AB = 3,5 - (-2)$
+
+	$AB = 3,5 + 2$
+
+	$AB = 5,5$
+\end{exemple}
 
 \end{document}

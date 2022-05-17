@@ -212,7 +212,7 @@
 	{\bfseries}% Police du titre de thm
 	{.} % Signe de ponctuation apres le titre du thm
 	{ }% Espace apres le titre du thm (\newline = linebreak)
-	{\myuline{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont{\textbf{#3}}}}}% composants du titre du thm : \thmname = nom du thm, \thmnumber = numéro du thm, \thmnote = sous-titre du thm
+	{\uline{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont{\textbf{#3}}}}}% composants du titre du thm : \thmname = nom du thm, \thmnumber = numéro du thm, \thmnote = sous-titre du thm
 
 \theoremstyle{underline_theorem_style}
 \newtheorem{question}{Question}
@@ -306,46 +306,6 @@
 \newcommand{\sommedirecte}[2]{\overset{#2}{\underset{#1}{\oplus}}}
 \renewcommand*{\proofname}{Preuve}
 
-\renewcommand{\ULdepth}{1.8pt}
-\contourlength{0.8pt}
-
-% Commande de soulignage
-% On peut optionellement spécifier la couleur
-\newcommand{\myuline}[2][]{%
-	{#1\uline{\phantom{#2}}}%
-	\llap{\contour{white}{#2}}%
-}
-
-% Permet de souligner !
-% \censorruledepth=-.25ex
-% \censorruleheight=.1ex
-% \newlength\maxkern
-% \setlength{\maxkern}{.14ex}
-% \newlength\nextcharwidth
-% \makeatletter
-% \renewcommand\@cenword[1]{%
-%   \setlength{\nextcharwidth}{\widthof{#1}}%
-%   \censorrule{\nextcharwidth}%
-%   \kern -\nextcharwidth%
-%   \color{white}%
-%   \kern -.5\maxkern #1\kern .5\maxkern%
-%   \kern -\nextcharwidth%
-%   \kern -\maxkern #1\kern \maxkern%
-%   \kern -\nextcharwidth%
-%   \kern .5\maxkern #1\kern -.5\maxkern%
-%   \kern -\nextcharwidth%
-%   \kern \maxkern #1\kern -\maxkern%
-%   \kern -\nextcharwidth%
-%   \color{black}%
-%   #1}
-% \makeatother
-
-% % Commande de soulignage
-% % On peut optionellement spécifier la couleur
-% \newcommand{\myuline}[2][]{%
-% 	{#1\xblackout{#2}}%
-% }
-
 % Pour entourer un nombre
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
@@ -363,7 +323,7 @@
 {\scriptsize colle dans ton cahier d'exercices}
 	\begin{center}
 		\LARGE
-		\myuline{#1}
+		\uline{#1}
 		\vspace{1em}
 	\end{center}
 }

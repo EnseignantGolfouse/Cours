@@ -1,76 +1,8 @@
 \documentclass[a4paper,10pt]{article}
 
-\usepackage{fontspec}           % Pour changer la police
-\setmainfont[Ligatures=TeX]{DejaVuSans} % Police avec support pour l'UTF-8
-\usepackage[math-style=french]{unicode-math}       % Symboles unicodes en mode math
-\usepackage[french]{babel}    % françisation partielle de l'output
-\DecimalMathComma % 1,5 : pas d'espace après le 1 !
-\usepackage[a4paper,top=1cm,bottom=1cm,left=2cm,right=2cm]{geometry}  % Mise en page, marges
-\usepackage{amsthm}             % maths
-\usepackage{graphicx}           % figures
-\usepackage{color}              % couleurs rgb
-\usepackage{contour}            % Pour souligner
-\usepackage{ulem}               % Pour souligner
-\usepackage{tikz}               % Dessins géométriques
-\usepackage{nopageno}           % pas de numéros de page
-\usepackage[shortlabels]{enumitem}           % Pour facilement modifier les listes.
-\usepackage{awesomebox} % Diverse boites de texte
-\usepackage{fontawesome} % Icône web (via \faicon{...})
+\usepackage{préambule}
 
-% Symboles des listes
-\setlist[itemize,1]{label=•}
-\setlist[itemize,2]{label=○}
-\setlist[itemize,2]{label=■}
-\setlist[itemize,2]{label=□}
-
-% théorème qui souligne son titre.
-\newtheoremstyle{underline_theorem_style}
-	{\topsep} % espace avant
-	{\topsep} % espace après
-	{} % Police utilisee par le style de thm
-	{} % Indentation (vide = aucune, \parindent = indentation paragraphe)
-	{\bfseries}% Police du titre de thm
-	{.} % Signe de ponctuation apres le titre du thm
-	{ }% Espace apres le titre du thm (\newline = linebreak)
-	{\myuline{\thmname{#1}\thmnumber{ #2}\thmnote{ \normalfont{\textbf{#3}}}}}% composants du titre du thm : \thmname = nom du thm, \thmnumber = numéro du thm, \thmnote = sous-titre du thm
-
-\theoremstyle{underline_theorem_style}
-\newtheorem{exercice}{Exercice}
-\newtheorem*{exercice*}{Exercice}
-
-\renewcommand{\ULdepth}{1.8pt}
-\contourlength{0.8pt}
-
-% Commande de soulignage
-% On peut optionellement spécifier la couleur
-\newcommand{\myuline}[2][]{%
-	{#1\uline{\phantom{#2}}}%
-	\llap{\contour{white}{#2}}%
-}
-
-% Pour entourer un nombre
-\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
-            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
-
-% Pour dessiner un carré autour du texte
-\newcommand*\squared[1]{\tikz[baseline=(char.base)]{
-	\node[shape=rectangle,draw,inner sep=2pt] (char) {#1};}}
-
-
-\makeatletter
-\renewcommand{\maketitle}{%
-{\scriptsize colle dans ton cahier d'exercices} \vspace{0.5em}
-
-	\begin{center}
-		\LARGE
-		\myuline{\@title}
-	\end{center}
-}
-\makeatother
-
-\title{Activité : Proportionnalité}
-\date{}
-\author{}
+\TitreDActivite{Activité : Proportionnalité}
 
 \begin{document}
 
