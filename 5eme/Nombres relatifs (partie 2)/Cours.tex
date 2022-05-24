@@ -22,37 +22,20 @@
 \end{exemple}
 
 \begin{cours}[Addition de nombres relatifs, cas 1]
-	Si deux nombres relatifs ont \uline{le même signe}, alors leur somme a :
+	Pour additionner deux nombres négatifs :
 	\begin{itemize}
-		\item Le même signe que ces deux nombres.
-		\item Pour distance à zéro, la \textbf{somme} de leur distances à zéro.
+		\item On fait la somme de leurs distances à zero. C'est-à-dire, on fait la somme sans les signes “$-$”.
+		\item On ajoute un signe “$-$” devant le résultat.
 	\end{itemize}
 \end{cours}
 
-% Version 2
-% \begin{cours}[Addition de nombres relatifs, cas 1]
-% 	Pour additionner deux nombres relatifs :
-% 	\begin{itemize}
-% 		\item On fait la somme de leurs distance à zéro.
-% 		\item On ajoute un signe “$-$” devant le résultat.
-% 	\end{itemize}
-% \end{cours}
-
 \begin{exemple}
+	Pour calculer $-2 + (-7)$ :
 	\begin{itemize}
-		\item Pour calculer $5,4 + 3,5$ :
-		      \begin{itemize}
-			      \item Les deux nombres sont positifs, donc la somme est positive.
-			      \item La somme de leurs distances à zéro est $5,4 + 3,5 = 8,9$.
-		      \end{itemize}
-		      Donc la somme de $5,4$ et $3,5$ est $+8,9$ (ou juste $8,9$).
-		\item Pour calculer $-2 + (-7)$ :
-		      \begin{itemize}
-			      \item Les deux nombres sont négatifs, donc la somme est négative.
-			      \item La somme de leurs distances à zéro est $2 + 7 = 9$.
-		      \end{itemize}
-		      Donc la somme de $-2$ et $-7$ est $-9$.
+		\item La somme de leurs distances à zéro est $2 + 7 = 9$.
+		\item On rajoute un signe “$-$” devant le résultat.
 	\end{itemize}
+	Donc la somme de $-2$ et $-7$ est $-9$.
 \end{exemple}
 
 \begin{cours}[Addition de nombres relatifs, cas 2]
@@ -93,7 +76,7 @@
 
 \section{Soustraction}
 
-\begin{cours}
+\begin{cours}[Soustraction de nombres relatifs]
 	Pour \textbf{soustraire} un nombre relatif, on ajoute son opposé.
 \end{cours}
 
@@ -115,35 +98,29 @@
 	\end{minipage}
 \end{exemple}
 
-\begin{cours}
-	Sue une droite graduée, la \textbf{distance} entre deux point est égale à \uline{la différence} entre la plus grande abscisse et la plus petite.
-\end{cours}
+\begin{methode}[Simplification d'écriture]
+	Pour transformer des additions et soustractions sur les relatifs en opérations sur des nombres positifs, on applique les règles suivantes :
+
+	\begin{center}
+		$+$ suivi de $+$ donne $+$
+
+		$-$ suivi de $-$ donne $+$
+
+		$-$ suivi de $+$ donne $-$
+
+		$+$ suivi de $-$ donne $-$
+	\end{center}
+\end{methode}
 
 \begin{exemple}
-	\begin{center}
-		\begin{tikzpicture}[scale=1.5]
-			\coordinate (A) at (-2,0);
-			\coordinate (B) at (3.5,0);
-			\draw[\myarrow] (-2.2,0) -- (4.5,0);
-			\foreach \p in {-1,...,4} {
-					\draw (\p,0) -- (\p,-0.2) node[below] {$\p$};
-				}
-			\draw (A) -- ++(0,-0.2);
-			\foreach \p/\value in {A/-2,B/3{,}5} {
-			\node at (\p) {\color{red}×};
-			\node[above] at ($(\p) + (0,0.2)$) {\color{red}\p};
-			\node[below] at ($(\p) - (0,0.2)$) {\color{red}$\value$};
-			}
-		\end{tikzpicture}
-	\end{center}
+	\begin{itemize}
+		\item $5 - (-8)$ : Il y a un $-$ suivi d'un $-$, ce qui donne $+$.
 
-	La distance entre {\color{red}A} et {\color{red}B} est égale à :
+		      Donc $5 - (-8) = 5 + 8 = 13$.
+		\item $-3 + (-7)$ : Il y a un $+$ suivi d'un $-$, ce qui donne $-$.
 
-	$AB = 3,5 - (-2)$
-
-	$AB = 3,5 + 2$
-
-	$AB = 5,5$
+		      Donc $-3 + (-7) = -3 - 7 = -10$.
+	\end{itemize}
 \end{exemple}
 
 \end{document}
