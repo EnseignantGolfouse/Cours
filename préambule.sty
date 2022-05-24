@@ -40,6 +40,7 @@
 \usepackage{contour}            % Pour souligner
 \usepackage{ulem}               % Pour souligner
 \usetikzlibrary{shadows}        % effet d'ombre sur les boites ('shadow = true')
+\usetikzlibrary{arrows.meta}    % Flèche \myArrow 
 \usepackage{nopageno}           % pas de numéros de page
 \usepackage[makeroom]{cancel}   % texte barré
 \usepackage{hyperref}           % références
@@ -316,6 +317,8 @@
 \tikz[baseline=(char.base)]{%
 \node[shape=rectangle,draw,fill=#1,inner sep=2pt] (char) {#2};}%
 }
+
+\newcommand{\myArrow}{-{Latex[length=3mm, width=2mm]}}
 
 \newcommand{\TitreDActivite}[1]{%
 \makeatletter
