@@ -8,7 +8,8 @@
 \setmainfont[Ligatures=TeX]{DejaVuSans} % Police avec support pour l'UTF-8
 \usepackage[math-style=french,sans-style=upright]{unicode-math}       % Symboles unicodes en mode math
 \setmathfont{TeX Gyre DejaVu Math}
-\setmathfont{Latin Modern Math}[range=it/{latin},Scale=1.2] % lettres minuscule en cursif
+\setmathfont{Latin Modern Math}[range=it/{latin},Scale=MatchLowercase] % lettres minuscule en cursif
+\setmathfont{Latin Modern Math}[range=up/{greek},Scale=MatchLowercase] % lettres grecques minuscule en cursif
 \setmathfont{Noto Sans Math}[range={up/{num},bfup/{num}},Script=Default] % Nombre en sans serif.
 \usepackage{sourcecodepro}    % Police à chasse fixe
 \usepackage[french]{babel}    % françisation partielle de l'output

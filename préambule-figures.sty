@@ -1,6 +1,7 @@
-\ProvidesPackage{figures}
+\ProvidesPackage{préambule-figures}
 
 \usepackage{xargs}
+\usetikzlibrary{calc}
 
 % Arguments :
 % - hauteur
@@ -54,4 +55,20 @@
 	\draw[dashed] (0,-#1) [partial ellipse=0:180:#2 / 2 and #3 / 2];
 	\draw (#2 / 2,0) -- ++(0,-#1);
 	\draw (-#2 / 2,0) -- ++(0,-#1);
+}
+
+% Arguments :
+% - Obligatoires:
+%   - longeur de la base
+%   - position en perspective de la base
+%   - position du sommet
+% - Optionels après:
+%   - position globale de la figure
+\newcommandx{\pyramide}[4][4={(0,0)}]{
+	\draw #4 -- ++(#1,0) -- ++#2;
+	\draw #4 -- ++#3
+	#4 ++(#1,0) -- ($#4 + #3$)
+	#4 ++(#1,0) ++#2 -- ($#4 + #3$);
+	\draw[dashed] #4 ++#2 -- ($#4 + #3$);
+	\draw[dashed] #4 -- ++#2 -- ++(#1,0);
 }
