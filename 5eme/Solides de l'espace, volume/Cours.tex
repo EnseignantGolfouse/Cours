@@ -1,26 +1,8 @@
 % !TEX root = ./Cours.tex
 \documentclass[../€Cours-complet/Cours-complet]{subfiles}
 
-\usetikzlibrary{calc,positioning,snakes}
-
-% Morceau d'une ellipse.
-% Exemple : \draw (0,0) [partial ellipse=30:150:3cm and 2cm];
-\tikzset{
-    partial ellipse/.style args={#1:#2:#3}{
-        insert path={+ (#1:#3) arc (#1:#2:#3)}
-    }
-}
-% Arguments :
-% - hauteur
-% - largeur
-% - hauteur de la base
-\newcommand{\cylindre}[3]{
-	\draw (0,0) ellipse (#2 / 2 and #3 / 2);
-	\draw (0,-#1) [partial ellipse=0:-180:#2 / 2 and #3 / 2];
-	\draw[dashed] (0,-#1) [partial ellipse=0:180:#2 / 2 and #3 / 2];
-	\draw (#2 / 2,0) -- ++(0,-#1);
-	\draw (-#2 / 2,0) -- ++(0,-#1);
-}
+\usepackage{./figures}
+\usetikzlibrary{calc,positioning}
 
 \titleorchapter{Solides de l'espace, volume}{12}
 
@@ -48,11 +30,7 @@
 
 			\draw[ultra thin,fill=blue!30,draw=transparent] (B) -- (F) -- (G) -- (C) -- (B);
 
-			\draw[ultra thin] (B) -- (C) -- (D) -- (A) -- (B) -- (F) -- (G) -- (H) -- (D)
-			(C) -- (G);
-			\draw[thin,dotted] (E) -- (A)
-			(E) -- (H)
-			(E) -- (F);
+			\paveDroit{\rectHeight}{\rectWidth}{(1,1)}
 
 			\foreach \p / \pos in {
 					A/below left,
@@ -146,12 +124,7 @@
 			\draw[<->] (\patronX + \rectWidth + \rectHeight - 0.2,\patronY) -- node[midway,left] {\rectVraiHeight} ++(0,\rectHeight);
 			\draw[<->] (\patronX + \rectWidth + \rectHeight,\patronY + \rectHeight + 0.2) -- node[midway,above] {\rectVraiWidth} ++(\rectWidth,0);
 
-			\draw[fill=red!30] (\patronX,\patronY) -- ++(\rectWidth,0) -- ++(0,-\rectDepth) -- ++(-\rectWidth,0) -- cycle;
-			\draw[fill=blue!30] (\patronX + \rectWidth,\patronY) -- ++(\rectHeight,0) -- ++(0,-\rectDepth) -- ++(-\rectHeight,0) -- cycle;
-			\draw[fill=red!30] (\patronX + \rectWidth + \rectHeight,\patronY) -- ++(\rectWidth,0) -- ++(0,-\rectDepth) -- ++(-\rectWidth,0) -- cycle;
-			\draw[fill=blue!30] (\patronX + \rectWidth + \rectWidth + \rectHeight,2) -- ++(\rectHeight,0) -- ++(0,-\rectDepth) -- ++(-\rectHeight,0) -- cycle;
-			\draw[fill=green!30] (\patronX + \rectWidth + \rectHeight,\patronY + \rectHeight) -- ++(\rectWidth,0) -- ++(0,-\rectHeight) -- ++(-\rectWidth,0) -- cycle;
-			\draw[fill=green!30] (\patronX + \rectWidth + \rectHeight,\patronY - \rectDepth) -- ++(\rectWidth,0) -- ++(0,-\rectHeight) -- ++(-\rectWidth,0) -- cycle;
+			\patronPaveDroit[fill=red!30][fill=blue!30][fill=green!30]{\rectHeight}{\rectWidth}{\rectDepth}[\patronX][\patronY]
 		\end{tikzpicture}
 	\end{center}
 \end{cours}
