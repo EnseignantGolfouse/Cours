@@ -1,6 +1,7 @@
 \documentclass[a4paper,11pt]{article}
 
 \usepackage{préambule}
+\usepackage{préambule-scratch}
 
 \newgeometry{top=1cm,bottom=1cm,left=1cm,right=1cm}
 
@@ -35,22 +36,25 @@ On va faire des dessins en utilisant Scratch.
 		      \item Clique sur {\color{violet}Ajouter blocks}, puis sur « Créer un block ».
 		      \item Nomme ce block « Réinitialiser », et appuie sur « OK ».
 		      \item Accroche les instructions suivantes au nouveau block :
-		            \begin{itemize}
-			            \item[] \squared[Orchid]{cacher}
-			            \item[] \squared[cyan]{donner la valeur \circled{0} à x}
-			            \item[] \squared[cyan]{donner la valeur \circled{0} à y}
-			            \item[] \squared[cyan]{s'orienter à \circled{90}}
-			            \item[] \squared[Green]{stylo en position d'écriture}
-			            \item[] \squared[Green]{effacer tout}
-		            \end{itemize}
+		      \begin{center}
+				\begin{tikzpicture}[scale=0.9]
+					\startInstruction[Purple]{Réinitialiser}
+					\instruction[Orchid]{cacher}
+					\instruction[cyan]{donner la valeur \circled{0} à x}
+					\instruction[cyan]{donner la valeur \circled{0} à y}
+					\instruction[cyan]{s'orienter à \circled{90}}
+					\instruction[Green]{stylo en position d'écriture}
+					\instruction[Green]{effacer tout}
+				\end{tikzpicture}
+			  \end{center}
 	      \end{itemize}
-	      Tu peux maintenant utiliser le block \squared[violet]{Réinitialiser} pour effacer le dessin et mettre le stylo au centre de l'écran.
+	      Tu peux maintenant utiliser le block \tikz[scale=0.6]{\instruction[Purple]{Réinitialiser}[5]} pour effacer le dessin et mettre le stylo au centre de l'écran.
 \end{enumerate}
 
 \section{Premiers dessins}
 
 \begin{enumerate}
-	\item Utilise à la suite le block \squared[violet]{Réinitialiser} et \squared[cyan]{avance \circled{50}}.
+	\item Utilise à la suite le block \squared[Purple]{Réinitialiser} et \squared[cyan]{avance \circled{50}}.
 
 	      La ligne obtenue est-elle \vspace{0.5em}
 
